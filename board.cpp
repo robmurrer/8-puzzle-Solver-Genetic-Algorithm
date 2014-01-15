@@ -84,6 +84,117 @@ void Board::calcManhattan()
 
 }
 
+void Board::calcMoves()
+{
+    int i;
+
+    // clear moves
+    for (i=0; i<4; i++)
+        moves[i] = 0;
+
+    // find zero spot
+    for(i=0; i<9; i++)
+        if (board[i] == 0) break;
+    
+    // to keep track of what move is on
+    int j = 0;
+    int *b = getBoard();
+    switch (i)
+    {
+        case 0:
+            swap(b, 0, 1);
+            moves[j++] = Board(b).getHash();
+            swap(b, 0, 1);
+            swap(b, 0, 3);
+            moves[j++] = Board(b).getHash();
+            swap(b, 0, 3);
+            break; 
+        case 1:
+            swap(b, 1, 0);
+            moves[j++] = Board(b).getHash();
+            swap(b, 1, 0);
+            swap(b, 1, 2);
+            moves[j++] = Board(b).getHash();
+            swap(b, 1, 2);
+            swap(b, 1, 4);
+            moves[j++] = Board(b).getHash();
+            swap(b, 1, 4);
+            break;
+        case 2:
+            swap(b, 2, 1);
+            moves[j++] = Board(b).getHash();
+            swap(b, 2, 1);
+            swap(b, 2, 5);
+            moves[j++] = Board(b).getHash();
+            swap(b, 2, 5);
+            break;
+        case 3:
+            swap(b, 3, 0);
+            moves[j++] = Board(b).getHash();
+            swap(b, 3, 0);
+            swap(b, 3, 4);
+            moves[j++] = Board(b).getHash();
+            swap(b, 3, 4);
+            swap(b, 3, 6);
+            moves[j++] = Board(b).getHash();
+            swap(b, 3, 6);
+            break;
+        case 4:
+            swap(b, 4, 1);
+            moves[j++] = Board(b).getHash();
+            swap(b, 4, 1);
+            swap(b, 4, 3);
+            moves[j++] = Board(b).getHash();
+            swap(b, 4, 3);
+            swap(b, 4, 5);
+            moves[j++] = Board(b).getHash();
+            swap(b, 4, 5);
+            swap(b, 4, 7);
+            moves[j++] = Board(b).getHash();
+            swap(b, 4, 7);
+            break;
+        case 5:
+            swap(b, 5, 2);
+            moves[j++] = Board(b).getHash();
+            swap(b, 5, 2);
+            swap(b, 5, 4);
+            moves[j++] = Board(b).getHash();
+            swap(b, 5, 4);
+            swap(b, 5, 8);
+            moves[j++] = Board(b).getHash();
+            swap(b, 5, 8);
+            break;
+        case 6:
+            swap(b, 6, 3);
+            moves[j++] = Board(b).getHash();
+            swap(b, 6, 3);
+            swap(b, 6, 7);
+            moves[j++] = Board(b).getHash();
+            swap(b, 6, 7);
+            break;
+        case 7:
+            swap(b, 7, 4);
+            moves[j++] = Board(b).getHash();
+            swap(b, 7, 4);
+            swap(b, 7, 6);
+            moves[j++] = Board(b).getHash();
+            swap(b, 7, 6);
+            swap(b, 7, 8);
+            moves[j++] = Board(b).getHash();
+            swap(b, 7, 8);
+            break;
+        case 8:
+            swap(b, 8, 5);
+            moves[j++] = Board(b).getHash();
+            swap(b, 8, 5);
+            swap(b, 8, 7);
+            moves[j++] = Board(b).getHash();
+            swap(b, 8, 7);
+            break;
+    }
+
+    return;
+}
 
 int BoardSpace::getCol(int i)
 {
