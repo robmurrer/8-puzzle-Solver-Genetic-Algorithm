@@ -1,5 +1,7 @@
 #include <vector>
 #include <cstring>
+#ifndef BOARD_H 
+#define BOARD_H
 
 using namespace std;
 
@@ -39,3 +41,5 @@ namespace BoardSpace
     int getRow(int);
     void swap(int*, int, int);
 }
+
+#endif
