@@ -34,6 +34,12 @@ double Solution::getFitness() const
 
 bool Solution::operator<(const Solution& rhs) const
 {
-    if ((getFitness() - rhs.getFitness()) >= 0) return false;
+    if ((getFitness() - rhs.getFitness()) <= 0) return false;
     else return true;
+}
+
+bool Solution::solved()
+{
+    if (getStatus() == 123456780) return true;
+    else return false;
 }

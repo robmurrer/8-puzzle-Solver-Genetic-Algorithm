@@ -19,6 +19,7 @@ class Solution
         int getStatus() const { return list.back(); }
         bool operator<(const Solution& rhs) const;
         double getFitness() const;
+        bool solved();
 };
 
 #endif

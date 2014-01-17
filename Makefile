@@ -8,7 +8,7 @@ OBJ=$(SRC:%.cpp=%.o)
 
 all: $(OBJ)
 	$(CXX) -o $(BIN) $^
-	./puzzle 3287_1456 50 50 .01 .01
+	./puzzle _87256341 
 
 %.o: %.c
 	$(CXX) $@ -c $<
@@ -19,5 +19,5 @@ clean:
 
 vg: $(OBJ)
 	$(CXX) -o $(BIN) $^
-	valgrind ./puzzle _32871456 50 50 .01 .01
+	valgrind ./puzzle _32871456 
 
