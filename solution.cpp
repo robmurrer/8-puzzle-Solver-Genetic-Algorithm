@@ -24,3 +24,16 @@ void Solution::grow()
     map.insert(make_pair(moves[r], list.size()));
     list.push_back(moves[r]);
 }
+
+double Solution::getFitness() const
+{
+    int manhattan = Board(getStatus()).getManhattan();
+
+    return 1 - manhattan * .01;
+}
+
+bool Solution::operator<(const Solution& rhs) const
+{
+    if ((getFitness() - rhs.getFitness()) >= 0) return false;
+    else return true;
+}

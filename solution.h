@@ -16,7 +16,9 @@ class Solution
     public:
         Solution(int);
         void grow(); 
-        int getStatus() { return list.back(); }
+        int getStatus() const { return list.back(); }
+        bool operator<(const Solution& rhs) const;
+        double getFitness() const;
 };
 
 #endif
