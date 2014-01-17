@@ -14,44 +14,53 @@ int main(int argc, char **argv)
     char *boardStart;
     argc--; argv++;
     boardStart = *argv;
-    argc--; argv++;
-    argBuffer = *argv;
-    int population = atoi(argBuffer);
-    argc--; argv++;
-    argBuffer = *argv;
-    int generations = atoi(argBuffer);
-    argc--; argv++;
-    argBuffer = *argv;
-    double pc = atof(argBuffer);
-    argc--; argv++;
-    argBuffer = *argv;
-    double pm = atof(argBuffer);
 
+
+    // read in optional command line args
+    int population, generations;
+    double pc, pm;
+    if (argc != 1)
+    {
+        argc--; argv++;
+        argBuffer = *argv;
+        population = atoi(argBuffer);
+        argc--; argv++;
+        argBuffer = *argv;
+        generations = atoi(argBuffer);
+        argc--; argv++;
+        argBuffer = *argv;
+        pc = atof(argBuffer);
+        argc--; argv++;
+        argBuffer = *argv;
+        pm = atof(argBuffer);
+
+    }
+
+    // provide defaults if none were provided
+    else
+    {
+        population = 20;
+        generations = 100;
+        pc = 0.0;
+        pm = 1;
+    }
 
     printf("Board: %s, Population: %d, Generations: %d, Pc: %f, Pm: %f\n", 
             boardStart, population, generations, pc, pm);
-
     srand(time(0));
 
     Solution sol(Board(boardStart).getHash());
 
-    printf("Current status: %d\n", sol.getStatus());
-    printf("Growing...\n");
-    sol.grow();
-    printf("Current status: %d\n", sol.getStatus());
-    printf("Growing...\n");
-    sol.grow();
-    printf("Current status: %d\n", sol.getStatus());
-    printf("Growing...\n");
-    sol.grow();
-    printf("Current status: %d\n", sol.getStatus());
-    printf("Growing...\n");
-    sol.grow();
-    printf("Current status: %d\n", sol.getStatus());
+    Solution sol2 = sol;
 
-    for(int i=0; i<sol.list.size(); i++)
-        printf("list[%d] = %d, map[%d] = %d\n", 
-                i, sol.list[i], sol.list[i], sol.map.find(sol.list[i])->second);
+    sol2.grow();
+
+    printf("Solution 1: %d fitness: %f\n", sol.getStatus(), sol.getFitness());
+    printf("Solution 2: %d fitness: %f\n", sol2.getStatus(), sol2.getFitness());
+
+    if (sol < sol2) printf("Solution1 < Solution2\n");
+    else printf("Solution1 > Solution2\n");
+
 
     return 0;
 }
