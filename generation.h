@@ -20,6 +20,7 @@ class Generation
         void age();
         void print();
         bool cycle();
+        Solution getFittest() { return solutions[0]; }
 
 };
 

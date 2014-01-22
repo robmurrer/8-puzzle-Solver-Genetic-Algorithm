@@ -8,7 +8,7 @@ OBJ=$(SRC:%.cpp=%.o)
 
 all: $(OBJ)
 	$(CXX) -o $(BIN) $^
-	./puzzle _87256341 
+	./puzzle 123456708 
 
 %.o: %.c
 	$(CXX) $@ -c $<

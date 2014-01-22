@@ -59,6 +59,9 @@ int main(int argc, char **argv)
             break;
     }
 
+    gen.getFittest().print();
+
+
     return 0;
 }
 

@@ -35,7 +35,7 @@ class Board
 namespace BoardSpace
 {
     const int goalBoard[9] = { 8, 0, 1, 2, 3, 4, 5, 6, 7 };
-    const int goalBoardHash = 876543210;
+    const int goalBoardHash = 123456780; 
 
     int getCol(int);
     int getRow(int);

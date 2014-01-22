@@ -20,6 +20,7 @@ class Solution
         bool operator<(const Solution& rhs) const;
         double getFitness() const;
         bool solved();
+        void print();
 };
 
 #endif

@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include "solution.h"
+#include "board.h"
 
 Solution::Solution(int b)
 {
@@ -40,6 +41,18 @@ bool Solution::operator<(const Solution& rhs) const
 
 bool Solution::solved()
 {
-    if (getStatus() == 123456780) return true;
+    if (getStatus() == BoardSpace::goalBoardHash) return true;
     else return false;
+}
+
+void Solution::print()
+{
+    printf("Initial Position: \n");
+    Board(list[0]).printPretty();
+
+    for(int i=1; i<list.size(); i++)
+    {
+        printf("\nGeneration %d:\n", i);
+        Board(list[i]).printPretty();
+    }
 }
