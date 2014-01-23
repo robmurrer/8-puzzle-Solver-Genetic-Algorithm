@@ -41,7 +41,7 @@ int main(int argc, char **argv)
     else
     {
         population = 10;
-        generations = 2;
+        generations = 3;
         pc = 0.0;
         pm = 1;
     }
@@ -50,14 +50,19 @@ int main(int argc, char **argv)
             boardStart, population, generations, pc, pm);
     srand(time(0));
 
-    Generation gen(0, population, Board(boardStart).getHash()); 
+    Generation gen(1, population, Board(boardStart).getHash()); 
     
     for(int i=0; i<generations; i++)
     {
         // age population, sort, print, check if solved
         if (gen.cycle() == true)
             break;
+
+        // create new generation only if not last one 
+        if (i != generations-1)
+            gen = Generation(gen, 10);
     }
+
 
     gen.getFittest().print();
 

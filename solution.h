@@ -16,7 +16,10 @@ class Solution
     public:
         Solution(int);
         void grow(); 
-        int getStatus() const { return list.back(); }
+        bool growNoCycle(); 
+        void growBest(); 
+        void mutate();
+        int getStatus() const;
         bool operator<(const Solution& rhs) const;
         double getFitness() const;
         bool solved();
