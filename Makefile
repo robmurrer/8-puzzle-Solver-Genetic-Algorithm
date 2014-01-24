@@ -8,7 +8,8 @@ OBJ=$(SRC:%.cpp=%.o)
 
 all: $(OBJ)
 	$(CXX) -o $(BIN) $^
-	./puzzle 158_23467 
+	./puzzle _32871456 
+	#./puzzle 158_23467 
 
 %.o: %.c
 	$(CXX) $@ -c $<
@@ -25,3 +26,5 @@ dbg: $(OBJ)
 	$(CXX) -o $(BIN) $^
 	lldb ./puzzle 158_23467 
 
+build: $(OBJ)
+	$(CXX) -o $(BIN) $^

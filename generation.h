@@ -13,12 +13,14 @@ class Generation
         int size;
         int id;
         int origin;
+        int unchecked_growth;
+
         vector<Solution> solutions;
         
 
     public:
-        Generation(int id, int size, int boardStart);
-        Generation(Generation&, int);
+        Generation(int, int, int);
+        Generation(Generation&, int, double, double);
         void age();
         void print();
         bool cycle();

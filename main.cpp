@@ -5,6 +5,7 @@
 #include "board.h"
 #include "solution.h"
 #include "generation.h"
+#include "test.c"
 
 using namespace std;
 
@@ -40,17 +41,25 @@ int main(int argc, char **argv)
     // provide defaults if none were provided
     else
     {
-        population = 10;
-        generations = 3;
+        population = 100;
+        generations = 200;
         pc = 0.0;
         pm = 1;
     }
 
+    run_tests();
+/*
     printf("Board: %s, Population: %d, Generations: %d, Pc: %f, Pm: %f\n", 
             boardStart, population, generations, pc, pm);
     srand(time(0));
+    //srand(1982);
 
-    Generation gen(1, population, Board(boardStart).getHash()); 
+    int unchecked_growth = 30;
+    double max_duplicates = 0.1;
+    double population_decrement = 0.0;
+
+    Generation gen(1, population, Board(boardStart).getHash());
+            
     
     for(int i=0; i<generations; i++)
     {
@@ -58,15 +67,16 @@ int main(int argc, char **argv)
         if (gen.cycle() == true)
             break;
 
+
         // create new generation only if not last one 
         if (i != generations-1)
-            gen = Generation(gen, 10);
+            gen = Generation(gen, unchecked_growth, max_duplicates, population_decrement);
     }
 
 
     gen.getFittest().print();
 
-
+*/
     return 0;
 }
 

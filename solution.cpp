@@ -110,14 +110,14 @@ bool Solution::growNoCycle()
 int Solution::getStatus() const
 {
     return list.back();
-    //return list[list.size()-1];
 }
 
 double Solution::getFitness() const
 {
     int manhattan = Board(getStatus()).getManhattan();
+    int topleft = Board(getStatus()).getTopLeft();
 
-    return 1 - manhattan * .01;
+    return 1 - (manhattan*.01) - (topleft*.1);
 }
 
 bool Solution::operator<(const Solution& rhs) const

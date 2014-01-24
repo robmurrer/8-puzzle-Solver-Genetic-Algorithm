@@ -71,6 +71,24 @@ void Board::printConf()
     }
 }
 
+
+// if top row and left column are correct send back 0
+void Board::calcTopLeft()
+{
+    int top = 5; 
+    int left =0;
+
+    if (board[0] == 3)
+        left = 5;
+    if (board[0] == 1 && board[1] == 2 && board[2] == 3)
+        top = 0;
+
+    if (board[0] == 1 && board[3] == 4 && board[6] == 7)
+        left = 0;
+
+    topleft = top + left;
+}
+
 void Board::calcManhattan()
 {
     manhattan = 0;
