@@ -1,10 +1,15 @@
 CXX=g++
-CXXFLAGS=-g -Wall -pedantic
+CXXFLAGS=-g -Wall -pedantic -Wno-gnu -Wno-variadic-macros
+
 #CXXFLAGS=-g -std=c++11 -Wall -pedantic
 BIN=puzzle
 
 SRC=$(wildcard *.cpp)
 OBJ=$(SRC:%.cpp=%.o)
+
+default:
+	rm -f main.o
+	make all
 
 all: $(OBJ)
 	$(CXX) -o $(BIN) $^

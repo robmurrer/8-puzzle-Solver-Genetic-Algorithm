@@ -1,13 +1,8 @@
-#include <iostream>
-#include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 #include "board.h"
-#include "solution.h"
-#include "generation.h"
-#include "test.c"
+#include "world.h"
+#include "test.h"
 
-using namespace std;
 
 int main(int argc, char **argv)
 {
@@ -41,42 +36,20 @@ int main(int argc, char **argv)
     // provide defaults if none were provided
     else
     {
-        population = 100;
-        generations = 200;
+        population = 10;
+        generations = 5;
         pc = 0.0;
         pm = 1;
     }
 
-    run_tests();
-/*
-    printf("Board: %s, Population: %d, Generations: %d, Pc: %f, Pm: %f\n", 
-            boardStart, population, generations, pc, pm);
-    srand(time(0));
-    //srand(1982);
+    //run_tests();
 
-    int unchecked_growth = 30;
-    double max_duplicates = 0.1;
-    double population_decrement = 0.0;
-
-    Generation gen(1, population, Board(boardStart).getHash());
-            
-    
-    for(int i=0; i<generations; i++)
+    World world(Board(boardStart).getHash(), population, generations, pm, pc);
+    if (!world.solved)
     {
-        // age population, sort, print, check if solved
-        if (gen.cycle() == true)
-            break;
-
-
-        // create new generation only if not last one 
-        if (i != generations-1)
-            gen = Generation(gen, unchecked_growth, max_duplicates, population_decrement);
+        world.start();
     }
 
-
-    gen.getFittest().print();
-
-*/
     return 0;
 }
 

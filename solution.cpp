@@ -55,13 +55,13 @@ void Solution::growBest()
         if (moves[i] == 0) break;
 
 
-    // find move with best manhattan distance 
-    int best_fitness = Board(moves[0]).getManhattan();
+    // find move with best fitness 
+    double best_fitness = Board(moves[0]).getFitness();
     int best_index = 0;
 
     for (int j=1; j<i; j++)
     {
-        int tm = Board(moves[i]).getManhattan(); 
+        double tm = Board(moves[i]).getFitness(); 
         if (tm > best_fitness)
         {
             best_index = 1;
@@ -72,6 +72,55 @@ void Solution::growBest()
     // add to map and list
     map.insert(make_pair(moves[best_index], list.size()));
     list.push_back(moves[best_index]);
+}
+
+
+// not finished
+void Solution::growBestNoCycle()
+{
+    Board b(list.back());
+    int *moves = b.getMoves();
+
+    // calculate how many moves there are
+    int i;
+    for (i=0; i<4; i++)
+        if (moves[i] == 0) break;
+
+    // calculate how many moves haven't been made
+    int legit_moves = 0;
+    int nmoves[4];
+    for (int j=0; j<i; j++)
+        if (map.count(moves[j]) == 0)
+        {
+            nmoves[legit_moves++] = moves[j];
+        }
+
+    if (legit_moves == 0)
+    {
+        // do something like move random?
+        mutate();
+    }
+    else
+    {
+        double best_fitness = Board(nmoves[0]).getFitness();
+        int best_index = 0;
+
+        for (int j=1; j<i; j++)
+        {
+            double tm = Board(nmoves[i]).getFitness(); 
+            if (tm > best_fitness)
+            {
+                best_index = 1;
+                best_fitness = tm;
+            }
+        }
+
+        // add to map and list
+        map.insert(make_pair(nmoves[best_index], list.size()));
+        list.push_back(nmoves[best_index]);
+    }
+
+
 }
 
 bool Solution::growNoCycle()

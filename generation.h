@@ -9,25 +9,17 @@ using namespace std;
 
 class Generation
 {
-    private:
-        int size;
-        int id;
-        int origin;
-        int unchecked_growth;
-
-        vector<Solution> solutions;
-        
 
     public:
+        int id;
+        vector<Solution> solutions;
         Generation(int, int, int);
-        Generation(Generation&, int, double, double);
-        void age();
-        void print();
+        void prepareSort();
+        bool checkSolved();
+        void printVerbose();
+        void grow();
+        void growBest();
         bool cycle();
-        Solution getFittest() { return solutions[0]; }
-        Solution getFittest(int i) { return solutions[i]; }
-        int getSize() { return size; }
-        int getId() { return id; }
 
 };
 

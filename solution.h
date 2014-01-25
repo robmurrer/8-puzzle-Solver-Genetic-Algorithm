@@ -18,6 +18,7 @@ class Solution
         void grow(); 
         bool growNoCycle(); 
         void growBest(); 
+        void growBestNoCycle(); 
         void mutate();
         int getStatus() const;
         bool operator<(const Solution& rhs) const;

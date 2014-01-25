@@ -38,7 +38,6 @@ Board::Board(const int hash)
 
 }
 
-
 void Board::calcHash()
 {
     hash = 0;
@@ -75,11 +74,9 @@ void Board::printConf()
 // if top row and left column are correct send back 0
 void Board::calcTopLeft()
 {
-    int top = 5; 
-    int left =0;
+    int top = 1; 
+    int left =1;
 
-    if (board[0] == 3)
-        left = 5;
     if (board[0] == 1 && board[1] == 2 && board[2] == 3)
         top = 0;
 
@@ -100,6 +97,11 @@ void Board::calcManhattan()
         manhattan += xd + yd;
     }
 
+}
+
+void Board::calcFitness()
+{
+    fitness = 1 - getManhattan()*.01 - getTopLeft()*.01;
 }
 
 void Board::calcMoves()

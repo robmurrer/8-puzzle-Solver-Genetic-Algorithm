@@ -15,11 +15,13 @@ class Board
         int manhattan;
         int moves[4];
         int topleft;
+        double fitness;
 
         void calcHash();
         void calcManhattan();
         void calcMoves();
         void calcTopLeft();
+        void calcFitness();
 
     public:
         Board(const char *conf);
@@ -29,6 +31,7 @@ class Board
         int getHash() { calcHash(); return hash; }
         int getManhattan() { calcManhattan(); return manhattan; }
         int getTopLeft() { calcTopLeft(); return topleft; }
+        double getFitness() { calcFitness(); return fitness; }
         int * getBoard() { for(int i=0; i<9; i++) _board[i] = board[i]; return _board; } 
         int * getMoves() { calcMoves(); return moves; }
         void printPretty();
