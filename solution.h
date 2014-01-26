@@ -25,6 +25,7 @@ class Solution
         double getFitness() const;
         bool solved();
         void print();
+        bool checkCycle();
 };
 
 #endif

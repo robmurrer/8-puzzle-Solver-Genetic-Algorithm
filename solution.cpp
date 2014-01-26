@@ -24,7 +24,7 @@ void Solution::mutate()
     map.erase(b.getHash());
 
     //grow
-    grow();
+    growNoCycle();
 
 }
 void Solution::grow()
@@ -105,8 +105,8 @@ void Solution::growBestNoCycle()
     if (legit_moves == -1)
     {
         // do something like move random?
-        //mutate();
-        grow();
+        mutate();
+        //grow();
     }
     else
     {
@@ -196,3 +196,12 @@ void Solution::print()
         Board(list[i]).printPretty();
     }
 }
+
+bool Solution::checkCycle()
+{
+    for(multimap<int,int>::iterator i=map.begin(); i != map.end(); ++i)
+        printf("%d:%d\n", (*i).first, (*i).second);
+
+    return true;
+}
+

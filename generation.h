@@ -24,6 +24,7 @@ class Generation
         void grow();
         void growBest();
         bool cycle();
+        void checkCycles();
         void selection(int);
 
 };

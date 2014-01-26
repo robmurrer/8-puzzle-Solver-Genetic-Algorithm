@@ -18,7 +18,7 @@ class World
 
         
     public:
-        World();
+        World(int);
         World(int, int, int, double, double);
         void start();
         bool solved;

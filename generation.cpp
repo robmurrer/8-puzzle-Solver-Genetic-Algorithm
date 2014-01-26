@@ -76,13 +76,14 @@ void Generation::selection(int elites)
    }
 }
 
+void Generation::checkCycles()
+{
+    for (int i=0; i<solutions.size(); i++)
+        solutions[i].checkCycle();
+}
 
 void Generation::age()
 { 
-    if (id == 195) 
-    {
-        printf("made it\n"); 
-    }
     id++;
 }
 

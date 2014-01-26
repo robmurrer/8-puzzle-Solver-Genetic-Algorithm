@@ -16,7 +16,23 @@ int main(int argc, char **argv)
     // read in optional command line args
     int population, generations;
     double pc, pm;
-    if (argc != 1)
+
+    // no board just run tests
+    if (argc == 0)
+    {
+        run_tests();
+    }
+
+    // board only
+    else if (argc == 1)
+    {
+        World world(Board(boardStart).getHash());
+        if (!world.solved)
+            world.start();
+    }
+
+    // board and args
+    else
     {
         argc--; argv++;
         argBuffer = *argv;
@@ -37,12 +53,6 @@ int main(int argc, char **argv)
     }
 
     // provide defaults if none were provided
-    else
-    {
-        World world;
-        if (!world.solved)
-            world.start();
-    }
    
 
 

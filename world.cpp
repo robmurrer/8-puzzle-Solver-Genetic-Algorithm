@@ -6,12 +6,14 @@
 #include "dbh.h"
 
 #define SOLUTION_INIT_SIZE 30
+#define RAND_SEED 2010
 //#define RAND_SEED 1982
-#define RAND_SEED time(0) 
+//#define RAND_SEED time(0) 
 #define POPULATION_SIZE 100
-#define NUMBER_GENS 150 
-#define BOARD  32871456 
+#define NUMBER_GENS 500 
+//#define BOARD  32871456 
 //#define BOARD 876543210 
+//#define BOARD 876254301
 #define ELITES 0.1
 #define MUTATION 1.0
 #define CROSSOVER 1.0
@@ -40,11 +42,11 @@ World::World(int _origin, int _pop_size, int _num_gens, double _mutation, double
 
 
 // A testing constructor that pulls in defines rather than cmdline args 
-World::World() : population(0, POPULATION_SIZE, BOARD)
+World::World(int board) : population(0, POPULATION_SIZE, board)
 {
     pop_size = POPULATION_SIZE; 
     num_gens = NUMBER_GENS;
-    origin = BOARD;
+    origin = board;
     elites = (int) (ELITES * pop_size);
     mutation = MUTATION;
     crossover = CROSSOVER;

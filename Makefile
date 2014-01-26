@@ -1,35 +1,40 @@
 CXX=g++
 CXXFLAGS=-g -Wall -pedantic -Wno-gnu -Wno-variadic-macros
 
-#CXXFLAGS=-g -std=c++11 -Wall -pedantic
-BIN=puzzle
+BOARD=876254301
 
+BIN=puzzle
 SRC=$(wildcard *.cpp)
 OBJ=$(SRC:%.cpp=%.o)
 
 default:
-	rm -f main.o
-	make all
+	make build
+	./puzzle $(BOARD) 
 
 all: $(OBJ)
 	$(CXX) -o $(BIN) $^
-	./puzzle _32871456 
-	#./puzzle 158_23467 
 
 %.o: %.c
 	$(CXX) $@ -c $<
 
 clean:
 	rm -f *.o
-	rm $(BIN)
+	rm -f $(BIN)
 
-vg: $(OBJ)
-	$(CXX) -o $(BIN) $^
-	valgrind ./puzzle _32871456 
+vg: 
+	make clean
+	make build
+	valgrind ./puzzle $(BOARD) 
 
-dbg: $(OBJ)
-	$(CXX) -o $(BIN) $^
-	lldb ./puzzle 158_23467 
+dbg: 
+	make build
+	lldb ./puzzle $(BOARD) 
 
 build: $(OBJ)
 	$(CXX) -o $(BIN) $^
+
+test: 
+	rm -f main.o
+	make build
+	./puzzle
+
