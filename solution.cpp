@@ -27,6 +27,8 @@ void Solution::mutate()
     growNoCycle();
 
 }
+
+// this will cause cycles, only call if you know what you are doing
 void Solution::grow()
 {
     Board b(list.back());
@@ -43,36 +45,6 @@ void Solution::grow()
     // add to map and list
     map.insert(make_pair(moves[r], list.size()));
     list.push_back(moves[r]);
-}
-
-void Solution::growBest()
-{
-    Board b(list.back());
-    int *moves = b.getMoves();
-
-    // calculate how many moves there are
-    int i;
-    for (i=0; i<4; i++)
-        if (moves[i] == 0) break;
-
-
-    // find move with best fitness 
-    double best_fitness = Board(moves[0]).getFitness();
-    int best_index = 0;
-
-    for (int j=1; j<i; j++)
-    {
-        double tm = Board(moves[i]).getFitness(); 
-        if (tm > best_fitness)
-        {
-            best_index = 1;
-            best_fitness = tm;
-        }
-    }
-
-    // add to map and list
-    map.insert(make_pair(moves[best_index], list.size()));
-    list.push_back(moves[best_index]);
 }
 
 
