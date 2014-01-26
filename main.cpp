@@ -31,24 +31,21 @@ int main(int argc, char **argv)
         argBuffer = *argv;
         pm = atof(argBuffer);
 
+        World world(Board(boardStart).getHash(), population, generations, pm, pc);
+        if (!world.solved)
+            world.start();
     }
 
     // provide defaults if none were provided
     else
     {
-        population = 10;
-        generations = 5;
-        pc = 0.0;
-        pm = 1;
+        World world;
+        if (!world.solved)
+            world.start();
     }
+   
 
-    //run_tests();
 
-    World world(Board(boardStart).getHash(), population, generations, pm, pc);
-    if (!world.solved)
-    {
-        world.start();
-    }
 
     return 0;
 }

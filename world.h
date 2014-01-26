@@ -13,11 +13,12 @@ class World
         double crossover;
         int origin;
         int elites;
-
         Generation population;
+        void seedPopulation();
 
         
     public:
+        World();
         World(int, int, int, double, double);
         void start();
         bool solved;
