@@ -1,6 +1,22 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "board.h"
+#include "solution.h"
 #include "dbh.h"
+
+bool test_checkCycle()
+{
+    srand(0);
+    Solution sol(123456780);
+    sol.grow();
+    sol.grow();
+    sol.grow();
+    check_debug(sol.checkCycle(), "Did not detect cycle");
+    return true;
+error:
+    return false;
+
+}
 
 bool test_grow_best()
 {
@@ -21,6 +37,7 @@ bool test_test()
 
 bool (*tests[])() = 
 { 
+    test_checkCycle,
     test_grow_best,
     test_test 
 };

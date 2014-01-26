@@ -17,6 +17,7 @@ Generation::Generation(int _id, int size, int _boardStart)
 void Generation::grow()
 {
     for (int i=0; i<solutions.size(); i++)
+        //solutions[i].grow();
         solutions[i].growNoCycle();
 }
 
@@ -79,7 +80,8 @@ void Generation::selection(int elites)
 void Generation::checkCycles()
 {
     for (int i=0; i<solutions.size(); i++)
-        solutions[i].checkCycle();
+        if (solutions[i].checkCycle())
+            printf("Cycle Found\n");
 }
 
 void Generation::age()

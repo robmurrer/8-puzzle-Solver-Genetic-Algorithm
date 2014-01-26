@@ -52,7 +52,6 @@ int main(int argc, char **argv)
             world.start();
     }
 
-    // provide defaults if none were provided
    
 
 

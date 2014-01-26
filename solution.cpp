@@ -200,8 +200,12 @@ void Solution::print()
 bool Solution::checkCycle()
 {
     for(multimap<int,int>::iterator i=map.begin(); i != map.end(); ++i)
-        printf("%d:%d\n", (*i).first, (*i).second);
+    {
+        //printf("%d:%d\n", (*i).first, (*i).second);
+        if (map.count((*i).first) > 1)
+            return true;
 
-    return true;
+    }
+    return false;
 }
 

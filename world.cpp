@@ -10,7 +10,7 @@
 //#define RAND_SEED 1982
 //#define RAND_SEED time(0) 
 #define POPULATION_SIZE 100
-#define NUMBER_GENS 500 
+#define NUMBER_GENS 50 
 //#define BOARD  32871456 
 //#define BOARD 876543210 
 //#define BOARD 876254301
@@ -91,6 +91,7 @@ void World::start()
         population.prepareSort();
         population.selection(elites);
         //population.printVerbose();
+        population.checkCycles();
         population.printSummary();
         // if solution has been found break;
         if (population.checkSolved()) break;
