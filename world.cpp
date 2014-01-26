@@ -5,13 +5,16 @@
 #include "dbh.h"
 
 #define SOLUTION_INIT_SIZE 30
-#define RAND_SEED 1982
-#define POPULATION_SIZE 10
-#define NUMBER_GENS 20 
-#define BOARD  32871456 
+//#define RAND_SEED 9991982
+#define RAND_SEED time(0) 
+#define POPULATION_SIZE 100
+#define NUMBER_GENS 100 
+//#define BOARD  32871456 
+#define BOARD 876543210 
+#define ELITES 0.1
 
 World::World(int _origin, int _pop_size, int _num_gens, double _mutation, double _crossover) 
-    : population(1, POPULATION_SIZE, BOARD)
+    : population(0, POPULATION_SIZE, BOARD)
     //: population(1, _pop_size, _origin)
 {
     // init member variables
@@ -21,6 +24,7 @@ World::World(int _origin, int _pop_size, int _num_gens, double _mutation, double
     num_gens = NUMBER_GENS;
     //origin = _origin;
     origin = BOARD;
+    elites = (int) (ELITES * pop_size);
     mutation = _mutation;
     crossover = _crossover;
     solved = false;
@@ -57,9 +61,10 @@ void World::start()
     {
         population.age();
         population.growBest();
-        //population.grow();
         population.prepareSort();
-        population.printVerbose();
+        population.selection(elites);
+        //population.printVerbose();
+        population.printSummary();
         // if solution has been found break;
         if (population.checkSolved()) break;
     }

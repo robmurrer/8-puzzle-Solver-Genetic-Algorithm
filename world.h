@@ -12,6 +12,7 @@ class World
         double mutation;
         double crossover;
         int origin;
+        int elites;
 
         Generation population;
 

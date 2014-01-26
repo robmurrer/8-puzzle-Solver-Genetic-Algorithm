@@ -113,7 +113,7 @@ void Solution::growBestNoCycle()
         double best_fitness = Board(nmoves[0]).getFitness();
         int best_index = 0;
 
-        for (int j=1; j<legit_moves; j++)
+        for (int j=1; j<legit_moves+1; j++)
         {
             double tm = Board(nmoves[j]).getFitness(); 
             if (tm > best_fitness)
@@ -174,7 +174,7 @@ double Solution::getFitness() const
     int manhattan = Board(getStatus()).getManhattan();
     int topleft = Board(getStatus()).getTopLeft();
 
-    return 1 - (manhattan*.01) - (topleft*.1);
+    return 1 - (manhattan*.01) - (topleft*.2);
 }
 
 bool Solution::operator<(const Solution& rhs) const

@@ -16,13 +16,15 @@ class Generation
     public:
         Generation(int, int, int);
         void prepareSort();
-        void age() { id++;};
+        void age();
         bool checkSolved();
         Solution getBest();
         void printVerbose();
+        void printSummary();
         void grow();
         void growBest();
         bool cycle();
+        void selection(int);
 
 };
 

@@ -43,7 +43,6 @@ void Generation::prepareSort()
 void Generation::printVerbose()
 {
     printf("Generation: %d\n", id);
-    prepareSort();
     for (int i=0; i<solutions.size(); i++)
     {
         Board(solutions[i].getStatus()).printConf();
@@ -51,5 +50,39 @@ void Generation::printVerbose()
     }
 }
 
+void Generation::printSummary()
+{
+    printf("Generation: %d\n", id);
+    for (int i=0; i<(int)(.05*solutions.size()); i++)
+    {
+        Board(solutions[i].getStatus()).printConf();
+        printf(" %f\n", solutions[i].getFitness());
+    }
+}
 
+Solution crossover(Solution& strong, Solution& weak)
+{
+    //printf("crossing over %d with %d\n", strong.getStatus(), weak.getStatus());
+    weak.mutate();
+    return weak; 
+}
+
+
+void Generation::selection(int elites)
+{
+   for (int i=elites; i<solutions.size(); i++)
+   {
+       solutions[i] = crossover(solutions[i%elites], solutions[i]);
+   }
+}
+
+
+void Generation::age()
+{ 
+    if (id == 195) 
+    {
+        printf("made it\n"); 
+    }
+    id++;
+}
 
