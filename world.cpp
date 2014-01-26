@@ -10,8 +10,8 @@
 #define RAND_SEED time(0) 
 #define POPULATION_SIZE 100
 #define NUMBER_GENS 150 
-//#define BOARD  32871456 
-#define BOARD 876543210 
+#define BOARD  32871456 
+//#define BOARD 876543210 
 #define ELITES 0.1
 #define MUTATION 1.0
 #define CROSSOVER 1.0

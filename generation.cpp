@@ -17,7 +17,7 @@ Generation::Generation(int _id, int size, int _boardStart)
 void Generation::grow()
 {
     for (int i=0; i<solutions.size(); i++)
-        solutions[i].grow();
+        solutions[i].growNoCycle();
 }
 
 void Generation::growBest()

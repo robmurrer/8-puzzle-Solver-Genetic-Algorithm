@@ -156,10 +156,6 @@ bool Solution::growNoCycle()
         }
     }
 
-    // couldn't grow no all possibles have been visited
-    // todo don't insert same one
-    map.insert(make_pair(b.getHash(),list.size()));
-    list.push_back(b.getHash());
     return false;
 
 }
