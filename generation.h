@@ -9,13 +9,16 @@ using namespace std;
 
 class Generation
 {
-
-    public:
+    private:
         int id;
         vector<Solution> solutions;
+
+    public:
         Generation(int, int, int);
         void prepareSort();
+        void age() { id++;};
         bool checkSolved();
+        Solution getBest();
         void printVerbose();
         void grow();
         void growBest();

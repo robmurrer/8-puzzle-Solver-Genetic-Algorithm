@@ -26,13 +26,9 @@ void Generation::growBest()
         solutions[i].growBestNoCycle();
 }
 
-bool Generation::cycle()
+Solution Generation::getBest()
 {
-    growBest();
-    printVerbose();
-    id++;
-
-    return solutions[0].solved();
+    return solutions[0];
 }
     
 bool Generation::checkSolved()

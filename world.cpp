@@ -4,10 +4,10 @@
 #include "board.h"
 #include "dbh.h"
 
-#define SOLUTION_INIT_SIZE 30 
+#define SOLUTION_INIT_SIZE 30
 #define RAND_SEED 1982
-#define POPULATION_SIZE 100
-#define NUMBER_GENS 100 
+#define POPULATION_SIZE 10
+#define NUMBER_GENS 20 
 #define BOARD  32871456 
 
 World::World(int _origin, int _pop_size, int _num_gens, double _mutation, double _crossover) 
@@ -39,8 +39,8 @@ World::World(int _origin, int _pop_size, int _num_gens, double _mutation, double
         population.prepareSort();
         if (population.checkSolved())
         {
-            printf("Got really lucky and grew into solution on first generation.\n");
-            population.solutions[0].print();
+            printf("Got really lucky and grew into solution on initial population creation.\n");
+            population.getBest().print();
             solved = true;
             break;
         }
@@ -55,8 +55,14 @@ void World::start()
 {
     for(int i=0; i<num_gens; i++)
     {
-        if (population.cycle()) break;
+        population.age();
+        population.growBest();
+        //population.grow();
+        population.prepareSort();
+        population.printVerbose();
+        // if solution has been found break;
+        if (population.checkSolved()) break;
     }
 
-    population.solutions[0].print();
+    population.getBest().print();
 }

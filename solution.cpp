@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include "solution.h"
 #include "board.h"
+#include "dbh.h"
 
 Solution::Solution(int b)
 {
@@ -75,11 +76,15 @@ void Solution::growBest()
 }
 
 
-// not finished
 void Solution::growBestNoCycle()
 {
     Board b(list.back());
     int *moves = b.getMoves();
+
+    if (b.getHash() == 0)
+    {
+        debug("This should never happen");
+    }
 
     // calculate how many moves there are
     int i;
@@ -87,27 +92,30 @@ void Solution::growBestNoCycle()
         if (moves[i] == 0) break;
 
     // calculate how many moves haven't been made
-    int legit_moves = 0;
+    int legit_moves = -1;
     int nmoves[4];
     for (int j=0; j<i; j++)
+    {
         if (map.count(moves[j]) == 0)
         {
-            nmoves[legit_moves++] = moves[j];
+            nmoves[++legit_moves] = moves[j];
         }
 
-    if (legit_moves == 0)
+    }
+    if (legit_moves == -1)
     {
         // do something like move random?
-        mutate();
+        //mutate();
+        grow();
     }
     else
     {
         double best_fitness = Board(nmoves[0]).getFitness();
         int best_index = 0;
 
-        for (int j=1; j<i; j++)
+        for (int j=1; j<legit_moves; j++)
         {
-            double tm = Board(nmoves[i]).getFitness(); 
+            double tm = Board(nmoves[j]).getFitness(); 
             if (tm > best_fitness)
             {
                 best_index = 1;
