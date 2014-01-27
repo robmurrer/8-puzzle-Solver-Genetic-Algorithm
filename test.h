@@ -4,6 +4,39 @@
 #include "solution.h"
 #include "dbh.h"
 
+bool test_crossover()
+{
+
+
+    int board = 87654321; 
+    srand(0);
+
+    Solution a(board);
+    for (int i=0; i<10; i++)
+    {
+        a.growNoCycle();
+    }
+
+    Solution b(board);
+    for (int i=0; i<10; i++)
+    {
+        b.growBestNoCycle();
+    }
+
+    printf("Solution A\n");
+    a.print();
+    printf("Fitness: %f\n", a.getFitness());
+
+    printf("Solution B\n");
+    b.print();
+    printf("Fitness: %f\n", b.getFitness());
+
+    a.crossover(b);
+    a.print();
+
+    return true;
+}
+
 bool test_checkCycle()
 {
     srand(0);
@@ -37,6 +70,7 @@ bool test_test()
 
 bool (*tests[])() = 
 { 
+    test_crossover,
     test_checkCycle,
     test_grow_best,
     test_test 

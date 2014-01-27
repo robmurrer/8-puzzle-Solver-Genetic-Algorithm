@@ -1,7 +1,9 @@
 CXX=g++
 CXXFLAGS=-g -Wall -pedantic -Wno-gnu -Wno-variadic-macros
 
-BOARD=876254301
+BOARD=12345687_
+#BOARD=8762543_1
+#BOARD=_32871456
 
 BIN=puzzle
 SRC=$(wildcard *.cpp)

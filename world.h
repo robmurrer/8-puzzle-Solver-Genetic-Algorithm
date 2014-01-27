@@ -9,8 +9,8 @@ class World
     private:
         int pop_size;
         int num_gens;
-        double mutation;
-        double crossover;
+        int mutation;
+        int crossover;
         int origin;
         int elites;
         Population population;

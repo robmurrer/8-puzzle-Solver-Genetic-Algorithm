@@ -22,10 +22,10 @@ class Population
         void printVerbose();
         void printSummary();
         void grow();
-        void growBest();
+        void growBest(int);
         bool cycle();
         void checkCycles();
-        void selection(int);
+        void selection(int, int);
 
 };
 

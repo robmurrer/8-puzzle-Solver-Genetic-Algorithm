@@ -21,10 +21,15 @@ void Population::grow()
         solutions[i].growNoCycle();
 }
 
-void Population::growBest()
+void Population::growBest(int pm)
 {
     for (int i=0; i<solutions.size(); i++)
-        solutions[i].growBestNoCycle();
+    {
+        // only mutate with a certain probability
+        int r = rand() % pm;
+        if (r==0)
+            solutions[i].growBestNoCycle();
+    }
 }
 
 Solution Population::getBest()
@@ -61,19 +66,15 @@ void Population::printSummary()
     }
 }
 
-Solution crossover(Solution& strong, Solution& weak)
-{
-    //printf("crossing over %d with %d\n", strong.getStatus(), weak.getStatus());
-    weak.mutate();
-    return weak; 
-}
 
-
-void Population::selection(int elites)
+void Population::selection(int elites, int cm)
 {
    for (int i=elites; i<solutions.size(); i++)
    {
-       solutions[i] = crossover(solutions[i%elites], solutions[i]);
+        // only crossover with certain probability
+        int r = rand() % cm;
+        if (r==0)
+            solutions[i].crossover(solutions[i%elites]);
    }
 }
 

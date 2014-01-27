@@ -10,13 +10,10 @@
 //#define RAND_SEED 1982
 //#define RAND_SEED time(0) 
 #define POPULATION_SIZE 100
-#define NUMBER_GENS 50 
-//#define BOARD  32871456 
-//#define BOARD 876543210 
-//#define BOARD 876254301
+#define NUMBER_GENS 400 
 #define ELITES 0.1
-#define MUTATION 1.0
-#define CROSSOVER 1.0
+#define MUTATION 1.0 
+#define CROSSOVER 0.1
 
 World::World(int _origin, int _pop_size, int _num_gens, double _mutation, double _crossover) 
     : population(1, _pop_size, _origin)
@@ -26,8 +23,8 @@ World::World(int _origin, int _pop_size, int _num_gens, double _mutation, double
     num_gens = _num_gens;
     origin = _origin;
     elites = (int) (ELITES * pop_size);
-    mutation = _mutation;
-    crossover = _crossover;
+    mutation = (int)1/_mutation;
+    crossover = (int)1/_crossover;
     solved = false;
 
     // seed random number gen
@@ -35,7 +32,7 @@ World::World(int _origin, int _pop_size, int _num_gens, double _mutation, double
     printf("\nWorld Created\n");
     printf("Board: ");
     Board(origin).printConf();
-    printf(", Population: %d, Generations: %d, Pc: %f, Pm: %f\n", pop_size, num_gens, crossover, mutation);
+    printf(", Population: %d, Generations: %d, Pc: %f, Pm: %f\n", pop_size, num_gens, _crossover, _mutation);
 
     seedPopulation();
 }
@@ -48,8 +45,8 @@ World::World(int board) : population(0, POPULATION_SIZE, board)
     num_gens = NUMBER_GENS;
     origin = board;
     elites = (int) (ELITES * pop_size);
-    mutation = MUTATION;
-    crossover = CROSSOVER;
+    mutation = (int)1/MUTATION;
+    crossover = (int)1/CROSSOVER;
     solved = false;
 
     // seed random number gen
@@ -57,7 +54,7 @@ World::World(int board) : population(0, POPULATION_SIZE, board)
     printf("\nWorld Created\n");
     printf("Board: ");
     Board(origin).printConf();
-    printf(", Population: %d, Generations: %d, Pc: %f, Pm: %f\n", pop_size, num_gens, crossover, mutation);
+    printf(", Population: %d, Generations: %d, Pc: %f, Pm: %f\n", pop_size, num_gens, CROSSOVER, MUTATION);
 
     seedPopulation();
 
@@ -87,11 +84,11 @@ void World::start()
     for(int i=0; i<num_gens; i++)
     {
         population.age();
-        population.growBest();
+        population.growBest(mutation);
         population.prepareSort();
-        population.selection(elites);
-        population.printVerbose();
-        //population.printSummary();
+        population.selection(elites, crossover);
+        //population.printVerbose();
+        population.printSummary();
         // if solution has been found break;
         if (population.checkSolved()) break;
     }

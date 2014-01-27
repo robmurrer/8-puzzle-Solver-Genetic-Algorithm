@@ -102,6 +102,7 @@ void Board::calcManhattan()
 void Board::calcFitness()
 {
     fitness = 1 - getManhattan()*.01 - getTopLeft()*.01;
+    //fitness = 1 - getManhattan()*.01;
 }
 
 void Board::calcMoves()
