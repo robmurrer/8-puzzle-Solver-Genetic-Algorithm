@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include "world.h"
-#include "generation.h"
+#include "population.h"
 #include "board.h"
 #include "dbh.h"
 
@@ -90,9 +90,8 @@ void World::start()
         population.growBest();
         population.prepareSort();
         population.selection(elites);
-        //population.printVerbose();
-        population.checkCycles();
-        population.printSummary();
+        population.printVerbose();
+        //population.printSummary();
         // if solution has been found break;
         if (population.checkSolved()) break;
     }

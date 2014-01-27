@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "generation.h"
+#include "population.h"
 #include <map>
 
-Generation::Generation(int _id, int size, int _boardStart)
+Population::Population(int _id, int size, int _boardStart)
 {
     id = _id;
     solutions.reserve(size);
@@ -14,36 +14,36 @@ Generation::Generation(int _id, int size, int _boardStart)
         it = solutions.insert(it, Solution(_boardStart));
 }
 
-void Generation::grow()
+void Population::grow()
 {
     for (int i=0; i<solutions.size(); i++)
         //solutions[i].grow();
         solutions[i].growNoCycle();
 }
 
-void Generation::growBest()
+void Population::growBest()
 {
     for (int i=0; i<solutions.size(); i++)
         solutions[i].growBestNoCycle();
 }
 
-Solution Generation::getBest()
+Solution Population::getBest()
 {
     return solutions[0];
 }
     
-bool Generation::checkSolved()
+bool Population::checkSolved()
 {
     return solutions[0].solved();
 }
 
-void Generation::prepareSort()
+void Population::prepareSort()
 {
     sort(solutions.begin(), solutions.end());
 }
-void Generation::printVerbose()
+void Population::printVerbose()
 {
-    printf("Generation: %d\n", id);
+    printf("Population: %d\n", id);
     for (int i=0; i<solutions.size(); i++)
     {
         Board(solutions[i].getStatus()).printConf();
@@ -51,9 +51,9 @@ void Generation::printVerbose()
     }
 }
 
-void Generation::printSummary()
+void Population::printSummary()
 {
-    printf("Generation: %d\n", id);
+    printf("Population: %d\n", id);
     for (int i=0; i<(int)(.05*solutions.size()); i++)
     {
         Board(solutions[i].getStatus()).printConf();
@@ -69,7 +69,7 @@ Solution crossover(Solution& strong, Solution& weak)
 }
 
 
-void Generation::selection(int elites)
+void Population::selection(int elites)
 {
    for (int i=elites; i<solutions.size(); i++)
    {
@@ -77,14 +77,14 @@ void Generation::selection(int elites)
    }
 }
 
-void Generation::checkCycles()
+void Population::checkCycles()
 {
     for (int i=0; i<solutions.size(); i++)
         if (solutions[i].checkCycle())
             printf("Cycle Found\n");
 }
 
-void Generation::age()
+void Population::age()
 { 
     id++;
 }

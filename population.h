@@ -7,14 +7,14 @@
 
 using namespace std;
 
-class Generation
+class Population
 {
     private:
         int id;
         vector<Solution> solutions;
 
     public:
-        Generation(int, int, int);
+        Population(int, int, int);
         void prepareSort();
         void age();
         bool checkSolved();

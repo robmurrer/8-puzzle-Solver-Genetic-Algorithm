@@ -1,6 +1,6 @@
 #ifndef _WORLD_H_
 #define _WORLD_H_
-#include "generation.h"
+#include "population.h"
 using namespace std;
 
 
@@ -13,7 +13,7 @@ class World
         double crossover;
         int origin;
         int elites;
-        Generation population;
+        Population population;
         void seedPopulation();
 
         
