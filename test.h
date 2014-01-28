@@ -4,6 +4,16 @@
 #include "solution.h"
 #include "dbh.h"
 
+bool test_miss_placed()
+{
+    check_debug((Board(123456780).getMisPlaced() == 0), "Perfect board should have 0 misplaced");
+
+    check_debug((Board(123456708).getMisPlaced() == 2), "should have misplaced of 2");
+    return true;
+error:
+    return false;
+}
+
 bool test_crossover()
 {
 
@@ -24,15 +34,15 @@ bool test_crossover()
     }
 
     printf("Solution A\n");
-    a.print();
+    //a.print();
     printf("Fitness: %f\n", a.getFitness());
 
     printf("Solution B\n");
-    b.print();
+    //b.print();
     printf("Fitness: %f\n", b.getFitness());
 
     a.crossover(b);
-    a.print();
+    //a.print();
 
     return true;
 }
@@ -70,6 +80,7 @@ bool test_test()
 
 bool (*tests[])() = 
 { 
+    test_miss_placed,
     test_crossover,
     test_checkCycle,
     test_grow_best,

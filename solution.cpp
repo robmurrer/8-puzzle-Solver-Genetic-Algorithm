@@ -181,6 +181,9 @@ bool Solution::checkCycle()
     return false;
 }
 
+
+// there is a serious bug in this do not use
+// run under valgrind and see in illegal erasure
 void Solution::crossover(Solution& strong)
 {
     //printf("Crossing over %d with strong mate: %d\n", this->getStatus(), strong.getStatus());

@@ -1,9 +1,14 @@
 CXX=g++
 CXXFLAGS=-g -Wall -pedantic -Wno-gnu -Wno-variadic-macros
 
-BOARD=12345687_
+# can't solve this one
+#BOARD=12345687_
+
+# can't solve this one
 #BOARD=8762543_1
-#BOARD=_32871456
+
+#solves
+BOARD=_32871456
 
 BIN=puzzle
 SRC=$(wildcard *.cpp)
@@ -13,7 +18,7 @@ default:
 	make build
 	./puzzle $(BOARD) 
 
-all: $(OBJ)
+build: $(OBJ)
 	$(CXX) -o $(BIN) $^
 
 %.o: %.c
@@ -30,10 +35,7 @@ vg:
 
 dbg: 
 	make build
-	lldb ./puzzle $(BOARD) 
-
-build: $(OBJ)
-	$(CXX) -o $(BIN) $^
+	lldb ./puzzle 
 
 test: 
 	rm -f main.o

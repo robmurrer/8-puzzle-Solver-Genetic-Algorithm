@@ -48,7 +48,7 @@ void Population::prepareSort()
 }
 void Population::printVerbose()
 {
-    printf("Population: %d\n", id);
+    printf("Generation: %d\n", id);
     for (int i=0; i<solutions.size(); i++)
     {
         Board(solutions[i].getStatus()).printConf();
@@ -58,7 +58,7 @@ void Population::printVerbose()
 
 void Population::printSummary()
 {
-    printf("Population: %d\n", id);
+    printf("Generation: %d\n", id);
     for (int i=0; i<(int)(.05*solutions.size()); i++)
     {
         Board(solutions[i].getStatus()).printConf();

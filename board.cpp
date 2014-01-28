@@ -76,6 +76,8 @@ void Board::calcTopLeft()
 {
     int top = 1; 
     int left =1;
+    //int middlev =2;
+    //int middleh =1;
 
     if (board[0] == 1 && board[1] == 2 && board[2] == 3)
         top = 0;
@@ -83,6 +85,13 @@ void Board::calcTopLeft()
     if (board[0] == 1 && board[3] == 4 && board[6] == 7)
         left = 0;
 
+    //if (board[1] == 2 && board[4] == 5 && board[7] == 8)
+        //middlev = 0;
+
+    //if (board[3] == 4 && board[4] == 5 && board[5] == 6)
+        //middleh = 0;
+
+    //topleft = top + left + middlev + middleh;
     topleft = top + left;
 }
 
@@ -99,9 +108,20 @@ void Board::calcManhattan()
 
 }
 
+void Board::calcMisPlaced()
+{
+    misplaced = 0;
+    for (int i=0; i<8; i++)
+        if (board[i] != i+1)
+                misplaced++;
+    if (board[8] != 0)
+        misplaced++;
+}
+
 void Board::calcFitness()
 {
-    fitness = 1 - getManhattan()*.01 - getTopLeft()*.01;
+    fitness = 1 - getManhattan()*.01 - getMisPlaced()*.01;
+    //fitness = 1 - getManhattan()*.01 - getTopLeft()*.01;
     //fitness = 1 - getManhattan()*.01;
 }
 
