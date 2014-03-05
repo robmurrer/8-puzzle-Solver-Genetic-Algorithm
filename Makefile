@@ -14,9 +14,14 @@ BIN=puzzle
 SRC=$(wildcard *.cpp)
 OBJ=$(SRC:%.cpp=%.o)
 
-default:
+test: 
+	rm -f main.o
 	make build
-	./puzzle $(BOARD) 
+	valgrind ./puzzle
+
+run:
+	make build
+	valgrind ./puzzle $(BOARD) 
 
 build: $(OBJ)
 	$(CXX) -o $(BIN) $^
@@ -28,17 +33,8 @@ clean:
 	rm -f *.o
 	rm -f $(BIN)
 
-vg: 
-	make clean
-	make build
-	valgrind ./puzzle $(BOARD) 
-
 dbg: 
 	make build
 	lldb ./puzzle 
 
-test: 
-	rm -f main.o
-	make build
-	./puzzle
 

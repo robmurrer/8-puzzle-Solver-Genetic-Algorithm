@@ -81,7 +81,7 @@ bool test_test()
 bool (*tests[])() = 
 { 
     test_miss_placed,
-    test_crossover,
+    //test_crossover,
     test_checkCycle,
     test_grow_best,
     test_test 
