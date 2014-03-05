@@ -40,7 +40,7 @@ There is an initial growth to the population that is not considered part of the 
 *Crossover is not implemented in the final version of this program.*
 
 ## Mutation Algorithm
-The mutation algorithm is grows a solution by swapping two tiles. The growth favors the tile positions with the greatest fitness value for that state.  If no growth can be made because there would be a cycle within the solution, the current state is erased and any state that does not create a cycle is then added to the solution randomly.  If no state can be added without creating a cycle, there is not growth.
+The mutation algorithm grows a solution by swapping two tiles. The growth favors the tile positions with the greatest fitness value for that state.  If no growth can be made because there would be a cycle within the solution, the current state is erased and any state that does not create a cycle is then added to the solution randomly.  If no state can be added without creating a cycle, there is no growth.
 
 ## Fitness Function
 A Manhattan distance and a Misplaced Tiles count are used in the fitness function.  The Manhattan distance is the sum of the total distance horizontally and vertically to the tiles goal state.  Misplaced tile count is a sum of the tiles that are not in the goal state.
@@ -68,6 +68,6 @@ The reason a crossover algorithm was not included in this version of the program
 * `world.cpp`: Controls the entire run of the GA.  Seeds the initial population and houses all control parameters.
 * `population.cpp`: The data structure for holding the solutions.  Allows the wholesale calling of growth and mutation on solutions.
 * `solution.cpp`: The chromosome data structure for each solution.  Methods include mutation and crossover as well as auxiliary methods for getting and checking details of a solution.
-* `board.cpp`: The gene data structure for each puzzle state.  The encoding of each puzzle into an integer is included as well as various fitness methods.
-
+* `board.cpp`: The gene data structure for each puzzle state.  The encoding and decoding of each puzzle into an integer and array are located in this file. Logic for movement of tiles and fitness calculations are also located here. 
+* `main.cpp`: Parses command line arguments and creates the world.
 

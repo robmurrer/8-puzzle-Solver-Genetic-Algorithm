@@ -1,3 +1,4 @@
 puzzle
 *.o
 *.pdf
+.DS_Store
