@@ -5,7 +5,7 @@
 #include "board.h"
 #include "dbh.h"
 
-#define SOLUTION_INIT_SIZE 30
+#define SOLUTION_INIT_SIZE 10
 //#define RAND_SEED 2010
 //#define RAND_SEED 1982
 #define RAND_SEED time(0) 

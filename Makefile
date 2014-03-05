@@ -23,6 +23,10 @@ run:
 	make build
 	valgrind ./puzzle $(BOARD) 
 
+fast:
+	make build
+	./puzzle $(BOARD) 
+
 build: $(OBJ)
 	$(CXX) -o $(BIN) $^
 
