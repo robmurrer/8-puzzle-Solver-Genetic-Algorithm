@@ -86,8 +86,8 @@ void World::start()
         population.growBest(mutation);
         population.prepareSort();
         //population.selection(elites, crossover);
-        population.printVerbose();
-        //population.printSummary();
+        //population.printVerbose();
+        population.printSummary();
         // if solution has been found break;
         if (population.checkSolved()) break;
         population.age();
