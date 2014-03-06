@@ -27,6 +27,7 @@ class Solution
         void print();
         bool checkCycle();
         void crossover(Solution&);
+        void truncate();
 };
 
 #endif

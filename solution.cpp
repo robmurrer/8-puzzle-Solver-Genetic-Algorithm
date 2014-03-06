@@ -10,6 +10,20 @@ Solution::Solution(int b)
     list.push_front(b);
 }
 
+void Solution::truncate()
+{
+    // guard against removing original
+    if (list.size() <= 1)
+        return;
+
+    // get current position
+    Board b(list.back());
+
+    //remove from solution
+    list.pop_back();
+    map.erase(b.getHash());
+}
+
 void Solution::mutate()
 {
     // guard against removing original
@@ -164,7 +178,7 @@ void Solution::print()
 
     for(int i=1; i<list.size(); i++)
     {
-        printf("\nGeneration %d:\n", i);
+        printf("\nMove %d:\n", i);
         Board(list[i]).printPretty();
     }
 }

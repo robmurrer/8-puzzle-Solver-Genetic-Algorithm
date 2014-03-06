@@ -9,7 +9,7 @@
 //#define RAND_SEED 2010
 //#define RAND_SEED 1982
 #define RAND_SEED time(0) 
-#define POPULATION_SIZE 200
+#define POPULATION_SIZE 1000
 #define NUMBER_GENS 400 
 #define ELITES 0.1
 #define MUTATION 1.0 
@@ -83,9 +83,9 @@ void World::start()
 {
     for(int i=0; i<num_gens; i++)
     {
-        population.growBest(mutation);
+        population.mutate(mutation);
         population.prepareSort();
-        //population.selection(elites, crossover);
+        population.selection(elites, crossover);
         //population.printVerbose();
         population.printSummary();
         // if solution has been found break;

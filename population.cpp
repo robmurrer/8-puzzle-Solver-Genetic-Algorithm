@@ -90,3 +90,19 @@ void Population::age()
     id++;
 }
 
+void Population::mutate(int mrate)
+{
+    for (int i=0; i<solutions.size(); i++)
+    {
+        int r = rand() % mrate;
+        if (r == 0)
+        {
+            r = rand() % 4;
+            if (r == 0) solutions[i].growBestNoCycle();
+            if (r == 1) solutions[i].growNoCycle();
+            if (r == 2) solutions[i].mutate();
+            if (r == 3) solutions[i].truncate();
+        }
+    }
+}
+

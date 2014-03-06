@@ -23,6 +23,7 @@ class Population
         void printSummary();
         void grow();
         void growBest(int);
+        void mutate(int);
         bool cycle();
         void checkCycles();
         void selection(int, int);
