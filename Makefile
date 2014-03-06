@@ -17,7 +17,7 @@ OBJ=$(SRC:%.cpp=%.o)
 test: 
 	rm -f main.o
 	make build
-	valgrind ./puzzle
+	valgrind ./puzzle > test.txt 2>&1
 
 run:
 	make build
