@@ -15,7 +15,7 @@ class Population
 
     public:
         Population(int, int, int);
-        void prepareSort();
+        void sort();
         void age();
         bool checkSolved();
         Solution getBest();

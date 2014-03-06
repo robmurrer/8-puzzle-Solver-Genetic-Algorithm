@@ -42,9 +42,9 @@ bool Population::checkSolved()
     return solutions[0].solved();
 }
 
-void Population::prepareSort()
+void Population::sort()
 {
-    sort(solutions.begin(), solutions.end());
+    std::sort(solutions.begin(), solutions.end());
 }
 void Population::printVerbose()
 {

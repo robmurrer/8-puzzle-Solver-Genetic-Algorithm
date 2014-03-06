@@ -5,7 +5,7 @@
 #include "board.h"
 #include "dbh.h"
 
-#define SOLUTION_INIT_SIZE 10
+#define SOLUTION_INIT_SIZE 30 
 //#define RAND_SEED 2010
 //#define RAND_SEED 1982
 #define RAND_SEED time(0) 
@@ -66,8 +66,8 @@ void World::seedPopulation()
     //initialize population
     for (int i=0; i<SOLUTION_INIT_SIZE; i++)
     {
-        population.grow();
-        population.prepareSort();
+        population.mutate(1.0);
+        population.sort();
         if (population.checkSolved())
         {
             printf("Got really lucky and grew into solution on initial population creation.\n");
@@ -84,7 +84,7 @@ void World::start()
     for(int i=0; i<num_gens; i++)
     {
         population.mutate(mutation);
-        population.prepareSort();
+        population.sort();
         population.selection(elites, crossover);
         //population.printVerbose();
         population.printSummary();
