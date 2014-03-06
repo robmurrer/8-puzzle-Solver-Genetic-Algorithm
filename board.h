@@ -37,6 +37,7 @@ class Board
         double getFitness() { calcFitness(); return fitness; }
         int * getBoard() { for(int i=0; i<9; i++) _board[i] = board[i]; return _board; } 
         int * getMoves() { calcMoves(); return moves; }
+        int getDistance(int);
         void printPretty();
         void printConf();
 };

@@ -237,6 +237,28 @@ void Board::calcMoves()
     return;
 }
 
+int Board::getDistance(int b)
+{
+    Board b2(b);
+    int *b2array = b2.getBoard();
+    int distance = 0;
+
+    // loop through each cell in board
+    // and then find where it is in b
+    for (int i=0; i<9; i++)
+    {
+        int j;
+        // find in b2array
+        for (j=0; j<9; j++)
+            if (board[i] == b2array[j]) break;
+
+        // update distance
+        distance += abs(getCol(i) - getCol(j)) + abs(getRow(i) -getRow(j));
+    }
+
+    return distance;
+}
+
 int BoardSpace::getCol(int i)
 {
     if (i == 0 || i == 3 || i == 6)
