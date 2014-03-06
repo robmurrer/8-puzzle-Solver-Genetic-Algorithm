@@ -87,12 +87,12 @@ void World::start()
         population.prepareSort();
         population.calcDiversity();
         //population.selection(elites, crossover);
-        //population.printVerbose();
-        population.printSummary();
+        population.printVerbose();
+        //population.printSummary();
         // if solution has been found break;
         if (population.checkSolved()) break;
         population.age();
     }
 
-    population.getBest().print();
+    //population.getBest().print();
 }

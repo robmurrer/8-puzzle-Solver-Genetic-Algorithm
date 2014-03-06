@@ -49,11 +49,11 @@ void Population::prepareSort()
 }
 void Population::printVerbose()
 {
-    printf("Generation: %d adist: %f\n", id, avgDistance);
+    printf("Generation: %d adist: %f mdist: %f\n", id, avgDistance, meanDistance);
     for (int i=0; i<solutions.size(); i++)
     {
         Board(solutions[i].getStatus()).printConf();
-        printf(" %f adist: %f\n", solutions[i].getFitness(), solutions[i].getAvgDistance());
+        printf(" %f adist: %f mdist %f\n", solutions[i].getFitness(), solutions[i].getAvgDistance(), solutions[i].getMeanDistance()); 
     }
 }
 
