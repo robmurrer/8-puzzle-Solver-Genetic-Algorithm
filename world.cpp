@@ -66,8 +66,8 @@ void World::seedPopulation()
     //initialize population
     for (int i=0; i<SOLUTION_INIT_SIZE; i++)
     {
-        population.grow();
-        population.prepareSort();
+        population.mutate(1.0);
+        population.sort();
         if (population.checkSolved())
         {
             printf("Got really lucky and grew into solution on initial population creation.\n");
@@ -81,18 +81,25 @@ void World::seedPopulation()
 
 void World::start()
 {
-    for(int i=0; i<num_gens; i++)
+    int i;
+    for(i=0; i<num_gens; i++)
     {
-        population.growBest(mutation);
-        population.prepareSort();
         population.calcDiversity();
-        //population.selection(elites, crossover);
-        population.printVerbose();
-        //population.printSummary();
+        population.mutate(mutation);
+        population.sort();
+        population.selection(elites,crossover);
+        //population.printVerbose();
+        population.printSummary();
+
         // if solution has been found break;
         if (population.checkSolved()) break;
         population.age();
     }
 
-    //population.getBest().print();
+    population.getBest().print();
+    if (i < num_gens)
+    {
+        printf("Solution Found in %d generations\n", i+1);
+    }
+    else printf("No solution Found\n");
 }

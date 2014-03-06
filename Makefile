@@ -1,14 +1,15 @@
 CXX=g++
 CXXFLAGS=-g -Wall -pedantic -Wno-gnu -Wno-variadic-macros
 
-# can't solve this one
-#BOARD=12345687_
 
-# can't solve this one
-#BOARD=8762543_1
+#to easy
+#BOARD=_13425786
 
 #solves
-BOARD=_32871456
+#BOARD=_32871456
+
+#hardest
+BOARD=8672543_1
 
 BIN=puzzle
 SRC=$(wildcard *.cpp)
@@ -17,7 +18,7 @@ OBJ=$(SRC:%.cpp=%.o)
 test: 
 	rm -f main.o
 	make build
-	valgrind ./puzzle
+	valgrind ./puzzle > test.txt 2>&1
 
 run:
 	make build

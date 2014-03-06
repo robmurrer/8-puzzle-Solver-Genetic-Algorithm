@@ -17,7 +17,7 @@ class Population
 
     public:
         Population(int, int, int);
-        void prepareSort();
+        void sort();
         void age();
         bool checkSolved();
         Solution getBest();
@@ -25,6 +25,7 @@ class Population
         void printSummary();
         void grow();
         void growBest(int);
+        void mutate(int);
         bool cycle();
         void checkCycles();
         void selection(int, int);

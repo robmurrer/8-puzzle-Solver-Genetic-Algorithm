@@ -10,6 +10,26 @@ Solution::Solution(int b)
     list.push_front(b);
 }
 
+void Solution::truncate()
+{
+    int size = list.size();
+    // guard against removing original
+    if (size <= 1)
+        return;
+
+    int number_to_cut = rand() % size;
+
+    for(int i=0; i<number_to_cut; i++)
+    {
+        // get current position
+        Board b(list.back());
+
+        //remove from solution
+        list.pop_back();
+        map.erase(b.getHash());
+    }
+}
+
 void Solution::mutate()
 {
     // guard against removing original
@@ -164,7 +184,7 @@ void Solution::print()
 
     for(int i=1; i<list.size(); i++)
     {
-        printf("\nGeneration %d:\n", i);
+        printf("\nMove %d:\n", i);
         Board(list[i]).printPretty();
     }
 }
@@ -208,21 +228,19 @@ void Solution::crossover(Solution& strong)
         }
     }
 
-    printf("Crossing over at weak: %d and strong %d\n", left, right);
+    //printf("Crossing over at weak: %d and strong %d\n", left, right);
 
     // remove everything to the right of left in weak
-    int weak_size = (int)list.size();
+    int weak_size = list.size();
     for (int i=(left+1); i<weak_size; i++)
     {
-        int weak_hash = list[list.size()];
+        int weak_hash = list[list.size()-1];
+        //printf("weak_hash: %d\n", weak_hash);
         list.pop_back();
         map.erase(weak_hash);
     }
-    // not sure why but this last erase is needed
-    // but it is because map will be 1 greater
-    //map.erase(list[list.size()]);
 
-    printf("Weak map size: %d weak list size: %d\n", (int)map.size(), (int)list.size());
+    //printf("Weak map size: %d weak list size: %d\n", (int)map.size(), (int)list.size());
 
     //copy over strongs right side
     for (int i=(right+1); i<strong.list.size(); i++)
@@ -231,7 +249,7 @@ void Solution::crossover(Solution& strong)
         list.push_back(strong.list[i]);
     }
 
-    printf("Weak map size: %d weak list size: %d\n", (int)map.size(), (int)list.size());
+    //printf("Weak map size: %d weak list size: %d\n", (int)map.size(), (int)list.size());
 
 
     return;

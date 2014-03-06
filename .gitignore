@@ -2,3 +2,4 @@ puzzle
 *.o
 *.pdf
 .DS_Store
+test.txt

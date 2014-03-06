@@ -35,6 +35,7 @@ class Solution
         double getAvgDistance() { return avgDistance; }
         void setMeanDistance(double d) { meanDistance = d; }
         double getMeanDistance() { return meanDistance; }
+        void truncate();
 };
 
 #endif
