@@ -12,16 +12,22 @@ Solution::Solution(int b)
 
 void Solution::truncate()
 {
+    int size = list.size();
     // guard against removing original
-    if (list.size() <= 1)
+    if (size <= 1)
         return;
 
-    // get current position
-    Board b(list.back());
+    int number_to_cut = rand() % size;
 
-    //remove from solution
-    list.pop_back();
-    map.erase(b.getHash());
+    for(int i=0; i<number_to_cut; i++)
+    {
+        // get current position
+        Board b(list.back());
+
+        //remove from solution
+        list.pop_back();
+        map.erase(b.getHash());
+    }
 }
 
 void Solution::mutate()
