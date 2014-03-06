@@ -81,11 +81,12 @@ void World::seedPopulation()
 
 void World::start()
 {
-    for(int i=0; i<num_gens; i++)
+    int i;
+    for(i=0; i<num_gens; i++)
     {
         population.mutate(mutation);
         population.sort();
-        population.selection(elites, crossover);
+        population.selection(elites,crossover);
         //population.printVerbose();
         population.printSummary();
         // if solution has been found break;
@@ -94,4 +95,9 @@ void World::start()
     }
 
     population.getBest().print();
+    if (i < num_gens)
+    {
+        printf("Solution Found in %d generations\n", i+1);
+    }
+    else printf("No solution Found\n");
 }
