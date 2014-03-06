@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 #include "population.h"
 #include <map>
 
@@ -48,21 +49,21 @@ void Population::prepareSort()
 }
 void Population::printVerbose()
 {
-    printf("Generation: %d\n", id);
+    printf("Generation: %d adist: %f\n", id, avgDistance);
     for (int i=0; i<solutions.size(); i++)
     {
         Board(solutions[i].getStatus()).printConf();
-        printf(" %f\n", solutions[i].getFitness());
+        printf(" %f adist: %f\n", solutions[i].getFitness(), solutions[i].getAvgDistance());
     }
 }
 
 void Population::printSummary()
 {
-    printf("Generation: %d\n", id);
+    printf("Generation: %d adist: %f\n", id, avgDistance);
     for (int i=0; i<(int)(.05*solutions.size()); i++)
     {
         Board(solutions[i].getStatus()).printConf();
-        printf(" %f\n", solutions[i].getFitness());
+        printf(" %f adist: %f dmean %f\n", solutions[i].getFitness(), solutions[i].getAvgDistance(), fabs(solutions[i].getAvgDistance()- avgDistance));
     }
 }
 
@@ -89,4 +90,40 @@ void Population::age()
 { 
     id++;
 }
+
+void Population::calcDiversity()
+{
+    // for the population used as simple counter until end 
+    avgDistance = 0;
+    
+    for (int i=0; i<solutions.size(); i++)
+    {
+        int distance = 0;
+        Board iboard(solutions[i].getStatus());
+
+        for(int j=0; j<solutions.size(); j++)
+        {
+            // don't do calc on self
+            if (i==j) continue;
+            distance += iboard.getDistance(solutions[j].getStatus());
+        }
+        
+        // for individual
+        double pAvgDistance = (double)distance/(solutions.size() - 1);
+
+        // for population
+        avgDistance += pAvgDistance;
+        solutions[i].setAvgDistance(pAvgDistance);
+    }
+
+    // create actual average
+    avgDistance = avgDistance / solutions.size();
+}
+
+
+
+
+
+
+
 

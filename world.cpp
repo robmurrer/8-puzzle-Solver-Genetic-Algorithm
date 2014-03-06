@@ -5,12 +5,12 @@
 #include "board.h"
 #include "dbh.h"
 
-#define SOLUTION_INIT_SIZE 10
+#define SOLUTION_INIT_SIZE 5
 //#define RAND_SEED 2010
 //#define RAND_SEED 1982
 #define RAND_SEED time(0) 
-#define POPULATION_SIZE 200
-#define NUMBER_GENS 400 
+#define POPULATION_SIZE 100 
+#define NUMBER_GENS 300 
 #define ELITES 0.1
 #define MUTATION 1.0 
 #define CROSSOVER 0.1
@@ -85,6 +85,7 @@ void World::start()
     {
         population.growBest(mutation);
         population.prepareSort();
+        population.calcDiversity();
         //population.selection(elites, crossover);
         //population.printVerbose();
         population.printSummary();

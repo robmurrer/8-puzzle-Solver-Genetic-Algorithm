@@ -9,6 +9,9 @@ using namespace std;
 
 class Solution
 {
+    private:
+        double avgDistance;
+
     public:
         multimap<int, int> map; 
         deque<int> list;
@@ -27,6 +30,8 @@ class Solution
         void print();
         bool checkCycle();
         void crossover(Solution&);
+        void setAvgDistance(double d) { avgDistance = d; }
+        double getAvgDistance() { return avgDistance; }
 };
 
 #endif

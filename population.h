@@ -12,6 +12,7 @@ class Population
     private:
         int id;
         vector<Solution> solutions;
+        double avgDistance;
 
     public:
         Population(int, int, int);
@@ -26,6 +27,7 @@ class Population
         bool cycle();
         void checkCycles();
         void selection(int, int);
+        void calcDiversity();
 
 };
 
