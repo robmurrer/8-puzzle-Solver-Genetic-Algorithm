@@ -59,11 +59,11 @@ void Population::printVerbose()
 
 void Population::printSummary()
 {
-    printf("Generation: %d adist: %f\n", id, avgDistance);
+    printf("Generation: %d adist: %f mdist: %f\n", id, avgDistance, meanDistance);
     for (int i=0; i<(int)(.05*solutions.size()); i++)
     {
         Board(solutions[i].getStatus()).printConf();
-        printf(" %f adist: %f dmean %f\n", solutions[i].getFitness(), solutions[i].getAvgDistance(), fabs(solutions[i].getAvgDistance()- avgDistance));
+        printf(" %f adist: %f mdist %f\n", solutions[i].getFitness(), solutions[i].getAvgDistance(), solutions[i].getMeanDistance()); 
     }
 }
 
@@ -118,6 +118,19 @@ void Population::calcDiversity()
 
     // create actual average
     avgDistance = avgDistance / solutions.size();
+
+    meanDistance = 0;
+    for (int i=0; i<solutions.size(); i++)
+    {
+        double pMeanDistance = fabs(solutions[i].getAvgDistance() - avgDistance);
+        meanDistance += pMeanDistance;
+        solutions[i].setMeanDistance(pMeanDistance);
+    }
+
+    meanDistance = meanDistance / solutions.size();
+
+
+
 }
 
 

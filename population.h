@@ -13,6 +13,7 @@ class Population
         int id;
         vector<Solution> solutions;
         double avgDistance;
+        double meanDistance;
 
     public:
         Population(int, int, int);

@@ -11,6 +11,7 @@ class Solution
 {
     private:
         double avgDistance;
+        double meanDistance;
 
     public:
         multimap<int, int> map; 
@@ -32,6 +33,8 @@ class Solution
         void crossover(Solution&);
         void setAvgDistance(double d) { avgDistance = d; }
         double getAvgDistance() { return avgDistance; }
+        void setMeanDistance(double d) { meanDistance = d; }
+        double getMeanDistance() { return meanDistance; }
 };
 
 #endif
