@@ -148,3 +148,13 @@ void Population::mutate(int mrate)
     }
 }
 
+double Population::getAvgFitness()
+{
+    avgFitness = 0;
+
+    for(int i=0; i<solutions.size(); i++)
+        avgFitness += solutions[i].getFitness();
+
+    avgFitness /= solutions.size();
+    return avgFitness;
+}

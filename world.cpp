@@ -9,8 +9,8 @@
 //#define RAND_SEED 2010
 //#define RAND_SEED 1982
 #define RAND_SEED time(0) 
-#define POPULATION_SIZE 100 
-#define NUMBER_GENS 300 
+#define POPULATION_SIZE 1000 
+#define NUMBER_GENS 400 
 #define ELITES 0.1
 #define MUTATION 1.0 
 #define CROSSOVER 0.1
@@ -81,10 +81,15 @@ void World::seedPopulation()
 
 void World::start()
 {
+    FILE *log = fopen("log/data.txt", "w");
+    
     int i;
     for(i=0; i<num_gens; i++)
     {
         population.calcDiversity();
+        fprintf(log, "%d\t%f\t%f\t%f\n", 
+                i, population.getMeanDistance(), population.getAvgFitness(), 
+                population.getBest().getFitness());
         population.mutate(mutation);
         population.sort();
         population.selection(elites,crossover);
@@ -96,10 +101,26 @@ void World::start()
         population.age();
     }
 
+
     population.getBest().print();
     if (i < num_gens)
     {
         printf("Solution Found in %d generations\n", i+1);
+        fprintf(log, "%d\t%f\t%f\t%f\n", 
+            i, population.getMeanDistance(), population.getAvgFitness(), 
+            population.getBest().getFitness());
     }
     else printf("No solution Found\n");
+
+    fclose(log);
+    log = fopen("log/title.txt", "w");
+    fprintf(log, "population: %d - generations: %d - mutation: %.3f - crossover: %.3f -\n elites: %d - initial size: %d", 
+            pop_size, num_gens, (double) 1/mutation, (double) 1/crossover, 
+            elites, SOLUTION_INIT_SIZE); 
+    fclose(log);
+    log = fopen("log/file.txt", "w");
+    fprintf(log, "population:%d-generations:%d-mutation:%.3f-crossover:%.3f-elites:%d-initialsize:%d", 
+            pop_size, num_gens, (double) 1/mutation, (double) 1/crossover, 
+            elites, SOLUTION_INIT_SIZE); 
+    fclose(log);
 }

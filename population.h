@@ -14,6 +14,7 @@ class Population
         vector<Solution> solutions;
         double avgDistance;
         double meanDistance;
+        double avgFitness;
 
     public:
         Population(int, int, int);
@@ -30,6 +31,8 @@ class Population
         void checkCycles();
         void selection(int, int);
         void calcDiversity();
+        double getMeanDistance() { return meanDistance; }
+        double getAvgFitness();
 
 };
 
