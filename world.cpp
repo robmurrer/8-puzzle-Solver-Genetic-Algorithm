@@ -13,7 +13,7 @@
 #define NUMBER_GENS 500 
 #define ELITES 0.1
 #define MUTATION 1.0
-#define CROSSOVER 0.3
+#define CROSSOVER 0.1
 
 
 // A testing constructor that pulls in defines rather than cmdline args 

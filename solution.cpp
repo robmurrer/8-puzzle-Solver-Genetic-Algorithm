@@ -14,8 +14,8 @@ void Solution::truncate()
 {
     int size = list.size();
     // guard against removing original
-    if (size <= 1)
-        return;
+    // and only truncate if larger than 31
+    if (size <= 1 || size > 31) return;
 
     int number_to_cut = rand() % size;
 
