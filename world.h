@@ -20,7 +20,6 @@ class World
         
     public:
         World(int, bool);
-        World(int, int, int, double, double);
         void start();
         bool solved;
 };

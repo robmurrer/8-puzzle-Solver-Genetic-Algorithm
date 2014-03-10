@@ -158,3 +158,14 @@ double Population::getAvgFitness()
     avgFitness /= solutions.size();
     return avgFitness;
 }
+
+int Population::getUniqueIndividuals()
+{
+    map<int, int> hash;
+    for (int i=0; i<solutions.size(); i++)
+        hash.insert(make_pair(solutions[i].getStatus(), i));
+
+    return hash.size();
+}
+
+

@@ -6,10 +6,10 @@ CXXFLAGS=-g -Wall -pedantic -Wno-gnu -Wno-variadic-macros
 #BOARD=_13425786
 
 #solves
-#BOARD=_32871456
+BOARD=_32871456
 
 #hardest
-BOARD=8672543_1
+#BOARD=8672543_1
 
 BIN=puzzle
 SRC=$(wildcard *.cpp)
@@ -30,7 +30,8 @@ genplot:
 	    set title \"`cat log/title.txt`\"; set grid; \
 	    plot \"log/data.txt\" using 2 title 'Avg Distance' with lines, \
 	    \"log/data.txt\" using 3 title 'Avg Fitness' with lines, \
-	    \"log/data.txt\" using 4 title 'Best Fitness' with lines"
+	    \"log/data.txt\" using 4 title 'Best Fitness' with lines, \
+	    \"log/data.txt\" using 5 title 'Uniques' with lines"
 	open log/`cat log/file.txt`.png
 	make crossover
 

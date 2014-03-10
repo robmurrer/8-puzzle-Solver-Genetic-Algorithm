@@ -10,32 +10,10 @@
 //#define RAND_SEED 1982
 #define RAND_SEED time(0) 
 #define POPULATION_SIZE 500 
-#define NUMBER_GENS 10 
+#define NUMBER_GENS 500 
 #define ELITES 0.1
 #define MUTATION 1.0
-#define CROSSOVER 0.15
-
-World::World(int _origin, int _pop_size, int _num_gens, double _mutation, double _crossover) 
-    : population(1, _pop_size, _origin)
-{
-    // init member variables
-    pop_size = _pop_size;
-    num_gens = _num_gens;
-    origin = _origin;
-    elites = (int) (ELITES * pop_size);
-    mutation = (int)1/_mutation;
-    crossover = (int)1/_crossover;
-    solved = false;
-
-    // seed random number gen
-    srand(RAND_SEED);
-    printf("\nWorld Created\n");
-    printf("Board: ");
-    Board(origin).printConf();
-    printf(", Population: %d, Generations: %d, Pc: %f, Pm: %f\n", pop_size, num_gens, _crossover, _mutation);
-
-    seedPopulation();
-}
+#define CROSSOVER 0.3
 
 
 // A testing constructor that pulls in defines rather than cmdline args 
@@ -89,9 +67,10 @@ void World::start()
     for(i=0; i<num_gens; i++)
     {
         population.calcDiversity();
-        fprintf(log, "%d\t%f\t%f\t%f\n", 
+        fprintf(log, "%d\t%f\t%f\t%f\t%f\n", 
                 i, population.getMeanDistance(), population.getAvgFitness(), 
-                population.getBest().getFitness());
+                population.getBest().getFitness(), 
+                (double)population.getUniqueIndividuals()/pop_size);
         population.mutate(mutation);
         population.sort();
         population.selection(elites,crossover);
