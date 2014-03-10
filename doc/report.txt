@@ -1,25 +1,10 @@
-% 8 Puzzle Genetic Algorithm 
+% Enhanced 8-Puzzle GA 
 % Rob Murrer
-% January 27, 2014
+% March 11, 2014 
 
-# Compilation and Running Instructions
-These instructions are meant to compile and run the program on a Linux operating system with *make* and *g++* installed. From the command line the following steps are needed:
+# Introduction
 
-#. `make build`
-#. `./puzzle <board> <*population size> <*number of generations> <*crossover prob> <*mutation prob>`
-
-*If there are any changes to the source or the compilation is failing a `make clean` might be required before the previous steps.*
-
-The board representation is a 9 character string with the digits 1-8 and an underscore representing zero.  The characters in the string starts in the top-left cell of the 8 puzzle and progresses from left to right until reaching the end of a row and the continues to the next row from left to right.  This is the only required parameter.
-
-If more than one parameter is given the all of the optional parameters must be listed.
-
-* `population size`: positive integer value
-* `number of generations`: positive integer value
-* `crossover probability`: double value between 0.0 and 1.0
-* `mutation probability`: double value between 0.0 and 1.0
-
-# Description of Algorithm
+# Baseline Genetic Algorithm
 ## Problem Representation
 A solution to an 8 puzzle problem can be represented as a series of changes in tile positions.  A single state of the puzzle in this Genetic Algorithm (GA) is represented by a single 32 bit integer.  The encoding of the state of the puzzle is a simple reading of the numbers in cells 1 to 9 and combining them into a single integer.  For example the following board is encoded as 321456078.
 
@@ -30,38 +15,43 @@ A solution to an 8 puzzle problem can be represented as a series of changes in t
 A solution is an ordered list of these board positions.  Internally it is implemented as a doubly linked list and a hash table for fast lookup.
 
 ## Initialization of Population
-There is an initial growth to the population that is not considered part of the GA.  There is a constant value (30 in this case) that each solution will grow to before the run starts.  The solutions are grown from the initial tile state.  The possible moves from the current state are enumerated and then one is randomly chosen to be the next stage of the solution.  The grow algorithm will not create a cycle.  If a no moves are possible without a cycle, no move is made.
+There is an initial growth to the population that is not considered part of the GA.  There is a constant value (10 in this case) that each solution will mutate before the run starts.  The solutions are grown from the initial tile state.  
 
 
 ## Selection Algorithm
-*Selection is not implemented in the final version of this program.*
+The population is sorted according to fitness.  The elite members are then paired with the other members of the population.
+
 
 ## Crossover Algorithm
-*Crossover is not implemented in the final version of this program.*
+A single point crossover method is used.  The elite chromosome is iterated from the current state to the first state.  At each position a search is done in the weaker chromosome for a matching position in the elite.  The elite chromosome will then be copied to the weaker at that point.  The left half of the new chromosome will be from the weaker and the right half will be from the elite.  All chromosomes have at least one crossover point, the original board configuration.
 
 ## Mutation Algorithm
-The mutation algorithm grows a solution by swapping two tiles. The growth favors the tile positions with the greatest fitness value for that state.  If no growth can be made because there would be a cycle within the solution, the current state is erased and any state that does not create a cycle is then added to the solution randomly.  If no state can be added without creating a cycle, there is no growth.
+There are 4 ways a chromosome can mutate.  In each method steps are taken to never create a cycle.  Randomly the following are applied on each mutation call:
+
+#. Grow one new move to increase fitness value
+#. Grow one new move to a random non-cycling position
+#. Modify current board state into random non-cycling position
+#. Truncate to a random length
 
 ## Fitness Function
-A Manhattan distance and a Misplaced Tiles count are used in the fitness function.  The Manhattan distance is the sum of the total distance horizontally and vertically to the tiles goal state.  Misplaced tile count is a sum of the tiles that are not in the goal state.
+A Manhattan distance and the correctness of the top row and left columns are used in the fitness function.  The Manhattan distance is the sum of the total distance horizontally and vertically to the tiles goal state.  
 The fitness value for a solution is calculated by this formula applied to the current state of the solution:
 
-    Fitness = 1 - Manhattan*0.01 - Misplaced*0.01
+    Fitness = 1 - Manhattan*0.01 - TopLeft*0.2
 
 
 ## Parameters of GA
 These parameters will solve most 8 puzzles in under 150 generations.
 
-* `population size`: 200
-* `number of generations`: 400
+* `population size`: 500
+* `number of generations`: 200
 * `mutation probability`: 1.0
-* `crossover probability`: 0.0
+* `crossover probability`: 0.10
 * `random seed`: time(0)
 * `initial size of solution`: 30
+* `elites`: 20
 
-The above parameters do not find optimal solutions.  The values of population size and number of generations can be changed by +/-50% and still find solutions at a reasonable rate.  The failure to create a working crossover and selection algorithm may be a factor in the wide range of these to parameters.
 
-The reason a crossover algorithm was not included in this version of the program is because of a critical bug.  With more time the bug will hopefully be eliminated and this GA can solve puzzles like `8762543_1`.
 
 ## Description of Source Files
 
