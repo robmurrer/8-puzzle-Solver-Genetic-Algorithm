@@ -123,16 +123,18 @@ void World::start()
     fclose(log);
     log = fopen("log/title.txt", "w");
     fprintf(log, 
-            "pop: %d - gen: %d - mutation: %.3f - crossover: %.3f\
+            "%s - pop: %d - gen: %d - mutation: %.3f - crossover: %.3f\
             \nelites: %d - init size: %d - board: %d - %s - %d moves", 
-            pop_size, num_gens, (double) 1/mutation, (double) 1/crossover, 
-            elites, SOLUTION_INIT_SIZE, origin, (solved ? "SOLVED" : "NOT SOLVED"),
+            (enhanced ? "Enhanced" : "Baseline"), pop_size, num_gens, (double) 1/mutation, 
+            (double) 1/crossover, elites, SOLUTION_INIT_SIZE, origin, 
+            (solved ? "SOLVED" : "NOT SOLVED"),
             population.getBest().getSize()); 
     fclose(log);
     log = fopen("log/file.txt", "w");
     fprintf(log, 
-            "%d-pop:%d-gen:%d-mut:%.3f-xover:%.3f-elites:%d-isize:%d-%s-%d-moves", 
-            origin, pop_size, num_gens, (double) 1/mutation, (double) 1/crossover, 
+            "%s-%d-pop:%d-gen:%d-mut:%.3f-xover:%.3f-elites:%d-isize:%d-%s-%d-moves", 
+            (enhanced ? "enh" : "bl"), origin, pop_size, num_gens, 
+            (double) 1/mutation, (double) 1/crossover, 
             elites, SOLUTION_INIT_SIZE, (solved ? "SOLVED" : "NOT-SOLVED"),
             population.getBest().getSize()); 
     fclose(log);

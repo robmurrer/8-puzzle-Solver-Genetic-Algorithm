@@ -16,8 +16,16 @@ SRC=$(wildcard *.cpp)
 OBJ=$(SRC:%.cpp=%.o)
 
 
+
 plot:
 	make fast
+	make genplot
+
+plot_enhanced:
+	make fast_enhanced
+	make genplot
+
+genplot:
 	gnuplot -e "set term png; set out \"log/`cat log/file.txt`.png\"; set xlabel \"Generation\"; \
 	    set title \"`cat log/title.txt`\"; set grid; \
 	    plot \"log/data.txt\" using 2 title 'Avg Distance' with lines, \
@@ -48,6 +56,10 @@ run_enhanced:
 fast:
 	make build
 	./puzzle $(BOARD) 
+
+fast_enhanced:
+	make build
+	./puzzle $(BOARD) -e
 
 build: $(OBJ)
 	$(CXX) -o $(BIN) $^
