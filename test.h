@@ -101,7 +101,8 @@ bool (*tests[])() =
     test_crossover,
     test_checkCycle,
     test_grow_best,
-    test_test 
+    test_test,
+    NULL
 };
       
 
