@@ -13,12 +13,13 @@ class World
         int crossover;
         int origin;
         int elites;
+        bool enhanced;
         Population population;
         void seedPopulation();
 
         
     public:
-        World(int);
+        World(int, bool);
         World(int, int, int, double, double);
         void start();
         bool solved;

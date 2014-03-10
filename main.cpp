@@ -14,49 +14,28 @@ int main(int argc, char **argv)
     }
 
     // read in command line arguments
-    char *argBuffer;
     char *boardStart;
     argc--; argv++;
     boardStart = *argv;
 
-    // read in optional command line args
-    int population, generations;
-    double pc, pm;
 
-
-
-    // board only
+    // Regular GA
     if (argc == 1)
     {
-        World world(Board(boardStart).getHash());
+        World world(Board(boardStart).getHash(), false);
         if (!world.solved)
             world.start();
     }
 
-    // board and args
+    // Enhanced GA 
     else
     {
-        argc--; argv++;
-        argBuffer = *argv;
-        population = atoi(argBuffer);
-        argc--; argv++;
-        argBuffer = *argv;
-        generations = atoi(argBuffer);
-        argc--; argv++;
-        argBuffer = *argv;
-        pc = atof(argBuffer);
-        argc--; argv++;
-        argBuffer = *argv;
-        pm = atof(argBuffer);
-
-        World world(Board(boardStart).getHash(), population, generations, pm, pc);
+        World world(Board(boardStart).getHash(), true);
         if (!world.solved)
             world.start();
     }
 
    
-
-
 
     return 0;
 }

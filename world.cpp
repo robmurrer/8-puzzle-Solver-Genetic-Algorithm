@@ -39,7 +39,7 @@ World::World(int _origin, int _pop_size, int _num_gens, double _mutation, double
 
 
 // A testing constructor that pulls in defines rather than cmdline args 
-World::World(int board) : population(0, POPULATION_SIZE, board)
+World::World(int board, bool _enhanced) : population(0, POPULATION_SIZE, board)
 {
     pop_size = POPULATION_SIZE; 
     num_gens = NUMBER_GENS;
@@ -48,6 +48,7 @@ World::World(int board) : population(0, POPULATION_SIZE, board)
     mutation = (int)1/MUTATION;
     crossover = (int)1/CROSSOVER;
     solved = false;
+    enhanced = _enhanced;
 
     // seed random number gen
     srand(RAND_SEED);
@@ -55,6 +56,7 @@ World::World(int board) : population(0, POPULATION_SIZE, board)
     printf("Board: ");
     Board(origin).printConf();
     printf(", Population: %d, Generations: %d, Pc: %f, Pm: %f\n", pop_size, num_gens, CROSSOVER, MUTATION);
+    printf("%s Mode\n", (enhanced ? "Enhanced" : "Baseline"));
 
     seedPopulation();
 

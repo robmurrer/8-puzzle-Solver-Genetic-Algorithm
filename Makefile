@@ -41,6 +41,10 @@ run:
 	make build
 	valgrind ./puzzle $(BOARD) 
 
+run_enhanced:
+	make build
+	valgrind ./puzzle $(BOARD) -e
+
 fast:
 	make build
 	./puzzle $(BOARD) 
