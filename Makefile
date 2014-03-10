@@ -15,6 +15,23 @@ BIN=puzzle
 SRC=$(wildcard *.cpp)
 OBJ=$(SRC:%.cpp=%.o)
 
+
+plot:
+	make fast
+	gnuplot -e "set term png; set out \"log/`cat log/file.txt`.png\"; set xlabel \"Generation\"; \
+	    set title \"`cat log/title.txt`\"; set grid; \
+	    plot \"log/data.txt\" using 2 title 'Avg Distance' with lines, \
+	    \"log/data.txt\" using 3 title 'Avg Fitness' with lines, \
+	    \"log/data.txt\" using 4 title 'Best Fitness' with lines"
+	open log/`cat log/file.txt`.png
+	make crossover
+
+crossover:
+	gnuplot -e "set term png; set out \"log/`cat log/file.txt`-xover.png\"; set xlabel \"Crossover Counter\"; set ylabel \"Crossover point\"; set grid;\
+	    set title \"`cat log/title.txt`\"; set grid; \
+	    plot \"log/crossover.txt\" using 2 title 'Chromosome A', \
+	    \"log/crossover.txt\" using 3 title 'Chromosome B'"
+	open log/`cat log/file.txt`-xover.png
 test: 
 	rm -f main.o
 	make build
@@ -41,13 +58,4 @@ clean:
 dbg: 
 	make build
 	lldb ./puzzle 
-
-plot:
-	make fast
-	gnuplot -e "set term png; set out \"log/`cat log/file.txt`.png\"; set xlabel \"Generation\"; \
-	    set title \"`cat log/title.txt`\"; set grid; \
-	    plot \"log/data.txt\" using 2 title 'Avg Distance' with lines, \
-	    \"log/data.txt\" using 3 title 'Avg Fitness' with lines, \
-	    \"log/data.txt\" using 4 title 'Best Fitness' with lines"
-	open log/`cat log/file.txt`.png
 

@@ -5,15 +5,15 @@
 #include "board.h"
 #include "dbh.h"
 
-#define SOLUTION_INIT_SIZE 5
+#define SOLUTION_INIT_SIZE 10 
 //#define RAND_SEED 2010
 //#define RAND_SEED 1982
 #define RAND_SEED time(0) 
-#define POPULATION_SIZE 1000 
-#define NUMBER_GENS 400 
+#define POPULATION_SIZE 500 
+#define NUMBER_GENS 10 
 #define ELITES 0.1
-#define MUTATION 1.0 
-#define CROSSOVER 0.1
+#define MUTATION 1.0
+#define CROSSOVER 0.15
 
 World::World(int _origin, int _pop_size, int _num_gens, double _mutation, double _crossover) 
     : population(1, _pop_size, _origin)
@@ -94,16 +94,22 @@ void World::start()
         population.sort();
         population.selection(elites,crossover);
         //population.printVerbose();
-        population.printSummary();
+        //population.printSummary();
+        printf(".");
 
         // if solution has been found break;
-        if (population.checkSolved()) break;
+        if (population.checkSolved()) 
+        {
+            solved = true;
+            break;
+        }
         population.age();
     }
 
+    printf("\n");
 
     population.getBest().print();
-    if (i < num_gens)
+    if (solved)
     {
         printf("Solution Found in %d generations\n", i+1);
         fprintf(log, "%d\t%f\t%f\t%f\n", 
@@ -114,13 +120,18 @@ void World::start()
 
     fclose(log);
     log = fopen("log/title.txt", "w");
-    fprintf(log, "population: %d - generations: %d - mutation: %.3f - crossover: %.3f -\n elites: %d - initial size: %d", 
+    fprintf(log, 
+            "pop: %d - gen: %d - mutation: %.3f - crossover: %.3f\
+            \nelites: %d - init size: %d - board: %d - %s - %d moves", 
             pop_size, num_gens, (double) 1/mutation, (double) 1/crossover, 
-            elites, SOLUTION_INIT_SIZE); 
+            elites, SOLUTION_INIT_SIZE, origin, (solved ? "SOLVED" : "NOT SOLVED"),
+            population.getBest().getSize()); 
     fclose(log);
     log = fopen("log/file.txt", "w");
-    fprintf(log, "population:%d-generations:%d-mutation:%.3f-crossover:%.3f-elites:%d-initialsize:%d", 
-            pop_size, num_gens, (double) 1/mutation, (double) 1/crossover, 
-            elites, SOLUTION_INIT_SIZE); 
+    fprintf(log, 
+            "%d-pop:%d-gen:%d-mut:%.3f-xover:%.3f-elites:%d-isize:%d-%s-%d-moves", 
+            origin, pop_size, num_gens, (double) 1/mutation, (double) 1/crossover, 
+            elites, SOLUTION_INIT_SIZE, (solved ? "SOLVED" : "NOT-SOLVED"),
+            population.getBest().getSize()); 
     fclose(log);
 }

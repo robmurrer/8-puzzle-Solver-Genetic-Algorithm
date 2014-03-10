@@ -36,6 +36,7 @@ class Solution
         void setMeanDistance(double d) { meanDistance = d; }
         double getMeanDistance() { return meanDistance; }
         void truncate();
+        int getSize() { return list.size(); }
 };
 
 #endif

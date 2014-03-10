@@ -206,6 +206,9 @@ bool Solution::checkCycle()
 // run under valgrind and see in illegal erasure
 void Solution::crossover(Solution& strong)
 {
+    static FILE *log = fopen("log/crossover.txt", "w");
+    static int log_counter = 1;
+
     //printf("Crossing over %d with strong mate: %d\n", this->getStatus(), strong.getStatus());
     
     // can always insert at start so keep that is worst point
@@ -229,6 +232,7 @@ void Solution::crossover(Solution& strong)
     }
 
     //printf("Crossing over at weak: %d and strong %d\n", left, right);
+    fprintf(log, "%d\t%d\t%d\n", log_counter++, left+1, right+1);
 
     // remove everything to the right of left in weak
     int weak_size = list.size();
