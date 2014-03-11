@@ -16,6 +16,9 @@ SRC=$(wildcard *.cpp)
 OBJ=$(SRC:%.cpp=%.o)
 
 
+compare:
+	make plot
+	make plot_enhanced
 
 plot:
 	make fast

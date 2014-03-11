@@ -5,25 +5,38 @@
 #include "board.h"
 #include "dbh.h"
 
-#define SOLUTION_INIT_SIZE 1 
-//#define RAND_SEED 2010
+#define LOGGING true
+
+// use same seed for comparing bl and enh
+#define RAND_SEED 2010
 //#define RAND_SEED 1982
-#define RAND_SEED time(0) 
+//#define RAND_SEED time(0) 
+
+// for both enhanced and bl use same pop/gen for fairness
 #define POPULATION_SIZE 500 
 #define NUMBER_GENS 500 
-#define ELITES 0.3
-#define MUTATION 1.0
-#define CROSSOVER 0.1
-#define LOGGING true
+
+// baseline
+#define BL_SOLUTION_INIT_SIZE 1 
+#define BL_ELITES 0.3
+#define BL_MUTATION 1.0
+#define BL_CROSSOVER 0.1
+
+// enhanced
+#define EN_SOLUTION_INIT_SIZE 30 
+#define EN_ELITES 0.3
+#define EN_MUTATION 1.0
+#define EN_CROSSOVER 0.1
 
 World::World(int board, bool _enhanced) : population(0, POPULATION_SIZE, board)
 {
     pop_size = POPULATION_SIZE; 
     num_gens = NUMBER_GENS;
     origin = board;
-    elites = (int) (ELITES * pop_size);
-    mutation = (int)1/MUTATION;
-    crossover = (int)1/CROSSOVER;
+
+    elites = (int) ((_enhanced ? EN_ELITES : BL_ELITES)* pop_size);
+    mutation = (int)1/(_enhanced ? EN_MUTATION : BL_MUTATION);
+    crossover = (int)1/(_enhanced ? EN_CROSSOVER : BL_CROSSOVER);
     solved = false;
     enhanced = _enhanced;
 
@@ -32,7 +45,9 @@ World::World(int board, bool _enhanced) : population(0, POPULATION_SIZE, board)
     printf("\nWorld Created\n");
     printf("Board: ");
     Board(origin).printConf();
-    printf(", Population: %d, Generations: %d, Pc: %f, Pm: %f\n", pop_size, num_gens, CROSSOVER, MUTATION);
+    printf(", Population: %d, Generations: %d, Pc: %f, Pm: %f\n", 
+            pop_size, num_gens, (_enhanced ? EN_CROSSOVER : BL_CROSSOVER), 
+            (_enhanced ? EN_MUTATION : BL_MUTATION));
     printf("%s Mode\n", (enhanced ? "Enhanced" : "Baseline"));
 
     seedPopulation();
@@ -43,7 +58,7 @@ World::World(int board, bool _enhanced) : population(0, POPULATION_SIZE, board)
 void World::seedPopulation()
 {
     //initialize population
-    for (int i=0; i<SOLUTION_INIT_SIZE; i++)
+    for (int i=0; i<(enhanced ? EN_SOLUTION_INIT_SIZE : BL_SOLUTION_INIT_SIZE); i++)
     {
         population.mutate(1.0);
         population.sort();
@@ -104,7 +119,8 @@ void World::start()
             "%s - pop: %d - gen: %d - mutat: %.3f - xover: %.3f - seed: %ld\
             \nelites: %d - isize: %d - board: %d - %s - %d moves", 
             (enhanced ? "Enhanced" : "Baseline"), pop_size, num_gens, (double) 1/mutation, 
-            (double) 1/crossover, (long)RAND_SEED, elites, SOLUTION_INIT_SIZE, origin, 
+            (double) 1/crossover, (long)RAND_SEED, elites, 
+            (enhanced ? EN_SOLUTION_INIT_SIZE : BL_SOLUTION_INIT_SIZE), origin, 
             (solved ? "SOLVED" : "NOT SOLVED"),
             population.getBest().getSize()); 
     fclose(log);
@@ -113,7 +129,8 @@ void World::start()
             "%s-%d-pop_%d-gen_%d-mut_%.3f-xover_%.3f-elites_%d-isize_%d-seed_%ld-%s-%d-moves", 
             (enhanced ? "enh" : "bl"), origin, pop_size, num_gens, 
             (double) 1/mutation, (double) 1/crossover, 
-            elites, SOLUTION_INIT_SIZE, (long)RAND_SEED, (solved ? "SOLVED" : "NOT-SOLVED"),
+            elites, (enhanced ? EN_SOLUTION_INIT_SIZE : BL_SOLUTION_INIT_SIZE), 
+            (long)RAND_SEED, (solved ? "SOLVED" : "NOT-SOLVED"),
             population.getBest().getSize()); 
     fclose(log);
 }
