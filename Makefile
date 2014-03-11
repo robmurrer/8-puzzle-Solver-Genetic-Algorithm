@@ -33,7 +33,7 @@ genplot:
 	    \"log/data.txt\" using 4 title 'Best Fitness' with lines, \
 	    \"log/data.txt\" using 5 title 'Uniques' with lines"
 	open log/`cat log/file.txt`.png
-	make crossover
+	#make crossover
 
 crossover:
 	gnuplot -e "set term png; set out \"log/`cat log/file.txt`-xover.png\"; set xlabel \"Crossover Counter\"; set ylabel \"Crossover point\"; set grid;\

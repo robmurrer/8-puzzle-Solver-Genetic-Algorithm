@@ -5,18 +5,17 @@
 #include "board.h"
 #include "dbh.h"
 
-#define SOLUTION_INIT_SIZE 10 
+#define SOLUTION_INIT_SIZE 1 
 //#define RAND_SEED 2010
 //#define RAND_SEED 1982
 #define RAND_SEED time(0) 
 #define POPULATION_SIZE 500 
 #define NUMBER_GENS 500 
-#define ELITES 0.1
+#define ELITES 0.3
 #define MUTATION 1.0
 #define CROSSOVER 0.1
+#define LOGGING true
 
-
-// A testing constructor that pulls in defines rather than cmdline args 
 World::World(int board, bool _enhanced) : population(0, POPULATION_SIZE, board)
 {
     pop_size = POPULATION_SIZE; 
@@ -102,19 +101,19 @@ void World::start()
     fclose(log);
     log = fopen("log/title.txt", "w");
     fprintf(log, 
-            "%s - pop: %d - gen: %d - mutation: %.3f - crossover: %.3f\
-            \nelites: %d - init size: %d - board: %d - %s - %d moves", 
+            "%s - pop: %d - gen: %d - mutat: %.3f - xover: %.3f - seed: %ld\
+            \nelites: %d - isize: %d - board: %d - %s - %d moves", 
             (enhanced ? "Enhanced" : "Baseline"), pop_size, num_gens, (double) 1/mutation, 
-            (double) 1/crossover, elites, SOLUTION_INIT_SIZE, origin, 
+            (double) 1/crossover, (long)RAND_SEED, elites, SOLUTION_INIT_SIZE, origin, 
             (solved ? "SOLVED" : "NOT SOLVED"),
             population.getBest().getSize()); 
     fclose(log);
     log = fopen("log/file.txt", "w");
     fprintf(log, 
-            "%s-%d-pop:%d-gen:%d-mut:%.3f-xover:%.3f-elites:%d-isize:%d-%s-%d-moves", 
+            "%s-%d-pop_%d-gen_%d-mut_%.3f-xover_%.3f-elites_%d-isize_%d-seed_%ld-%s-%d-moves", 
             (enhanced ? "enh" : "bl"), origin, pop_size, num_gens, 
             (double) 1/mutation, (double) 1/crossover, 
-            elites, SOLUTION_INIT_SIZE, (solved ? "SOLVED" : "NOT-SOLVED"),
+            elites, SOLUTION_INIT_SIZE, (long)RAND_SEED, (solved ? "SOLVED" : "NOT-SOLVED"),
             population.getBest().getSize()); 
     fclose(log);
 }
