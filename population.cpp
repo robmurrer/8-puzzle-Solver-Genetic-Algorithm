@@ -182,4 +182,19 @@ int Population::getUniqueIndividuals()
     return uniques.size();
 }
 
+void Population::controlDiversity(int max_uniques, int hyper)
+{
+    for (int i=0; i<solutions.size(); i++)
+    {
+        if (uniques[solutions[i].getStatus()] > max_uniques)
+        {
+            uniques[solutions[i].getStatus()]--;
 
+            // hyper mutate
+            for (int j=0; j<hyper; j++) solutions[i].mutate();
+        }
+    }
+}
+            
+
+            

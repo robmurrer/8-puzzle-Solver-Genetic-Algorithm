@@ -9,9 +9,9 @@
 #define LOGGING true
 
 // use same seed for comparing bl and enh
-#define RAND_SEED 2010
+//#define RAND_SEED 2010
 //#define RAND_SEED 1982
-//#define RAND_SEED time(0) 
+#define RAND_SEED time(0) 
 
 // for both enhanced and bl use same pop/gen for fairness
 #define POPULATION_SIZE 500 
@@ -28,6 +28,8 @@
 #define EN_ELITES 0.3
 #define EN_MUTATION 1.0
 #define EN_CROSSOVER 0.1
+#define EN_MAX_UNIQUES .1
+#define EN_HYPER_MUT 100
 
 World::World(int board, bool _enhanced) : population(0, POPULATION_SIZE, board)
 {
@@ -83,17 +85,19 @@ void World::start()
     {
         // the following line is population^2 so really slow, only useful for
         // visualization in tuning
-        //population.calcDiversity();
+        population.calcDiversity();
         int uniques = population.getUniqueIndividuals();
         fprintf(log, "%d\t%f\t%f\t%f\t%f\n", 
                 i, population.getMeanDistance(), population.getAvgFitness(), 
                 population.getBest().getFitness(), 
                 (double)uniques/pop_size);
+
+        if(enhanced) population.controlDiversity(EN_MAX_UNIQUES * pop_size, EN_HYPER_MUT);
+
         population.mutate(mutation);
         population.sort();
         population.selection(elites,crossover);
-        //population.printVerbose();
-        //population.printSummary();
+
         printf(".");
         fflush(NULL);
 

@@ -35,6 +35,7 @@ class Population
         double getMeanDistance() { return meanDistance; }
         double getAvgFitness();
         int getUniqueIndividuals();
+        void controlDiversity(int,int);
 
 };
 
