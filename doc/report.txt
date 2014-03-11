@@ -1,8 +1,16 @@
-% Enhanced 8-Puzzle GA 
+% Enhanced 8-Puzzle Genetic Algorithm
 % Rob Murrer
 % March 11, 2014 
 
 # Introduction
+This project is a continuation of a previous assignment.  The original Genetic Algorithm (GA) has been modified significantly.  These changes included implementing selection and crossover as well as a logging function that allows graphs to be made of the run of the GA.  These graphs proved invaluable in understanding and tuning the Baseline GA (BLGA).
+
+![Example Graph of GA Run](img/intro-graph.png)
+
+A couple of population diversity measurements were created to analyze the BLGA.  These measurements were used to create an Enhanced GA (ENGA).  The ENGA uses the diversity measurements to control the parameters of the GA.
+
+The comparison in performance by the BLGA and the ENGA was measured in the number of generations needed to solve a puzzle.  The ENGA performed...
+
 
 # Baseline Genetic Algorithm
 ## Problem Representation
@@ -26,12 +34,12 @@ The population is sorted according to fitness.  The elite members are then paire
 A single point crossover method is used.  The elite chromosome is iterated from the current state to the first state.  At each position a search is done in the weaker chromosome for a matching position in the elite.  The elite chromosome will then be copied to the weaker at that point.  The left half of the new chromosome will be from the weaker and the right half will be from the elite.  All chromosomes have at least one crossover point, the original board configuration.
 
 ## Mutation Algorithm
-There are 4 ways a chromosome can mutate.  In each method steps are taken to never create a cycle.  Randomly the following are applied on each mutation call:
+There are 4 ways a chromosome can mutate.  In each method steps are taken to never create a cycle.  Randomly one of the following are applied on each mutation call:
 
 #. Grow one new move to increase fitness value
 #. Grow one new move to a random non-cycling position
 #. Modify current board state into random non-cycling position
-#. Truncate to a random length
+#. If larger than 31 moves then truncate to a random length else nothing
 
 ## Fitness Function
 A Manhattan distance and the correctness of the top row and left columns are used in the fitness function.  The Manhattan distance is the sum of the total distance horizontally and vertically to the tiles goal state.  
