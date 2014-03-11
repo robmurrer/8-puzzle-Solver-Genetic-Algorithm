@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include <time.h>
 #include "world.h"
 #include "population.h"
@@ -8,9 +9,9 @@
 #define LOGGING true
 
 // use same seed for comparing bl and enh
-//#define RAND_SEED 2010
+#define RAND_SEED 2010
 //#define RAND_SEED 1982
-#define RAND_SEED time(0) 
+//#define RAND_SEED time(0) 
 
 // for both enhanced and bl use same pop/gen for fairness
 #define POPULATION_SIZE 500 
@@ -80,17 +81,21 @@ void World::start()
     int i;
     for(i=0; i<num_gens; i++)
     {
-        population.calcDiversity();
+        // the following line is population^2 so really slow, only useful for
+        // visualization in tuning
+        //population.calcDiversity();
+        int uniques = population.getUniqueIndividuals();
         fprintf(log, "%d\t%f\t%f\t%f\t%f\n", 
                 i, population.getMeanDistance(), population.getAvgFitness(), 
                 population.getBest().getFitness(), 
-                (double)population.getUniqueIndividuals()/pop_size);
+                (double)uniques/pop_size);
         population.mutate(mutation);
         population.sort();
         population.selection(elites,crossover);
         //population.printVerbose();
         //population.printSummary();
         printf(".");
+        fflush(NULL);
 
         // if solution has been found break;
         if (population.checkSolved()) 

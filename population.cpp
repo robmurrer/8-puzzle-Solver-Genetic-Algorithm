@@ -91,6 +91,7 @@ void Population::age()
     id++;
 }
 
+
 void Population::calcDiversity()
 {
     // for the population used as simple counter until end 
@@ -161,11 +162,24 @@ double Population::getAvgFitness()
 
 int Population::getUniqueIndividuals()
 {
-    map<int, int> hash;
+    // clear hash
+    uniques.clear();
     for (int i=0; i<solutions.size(); i++)
-        hash.insert(make_pair(solutions[i].getStatus(), i));
+    {
+        // not in hash yet
+        if (uniques.count(solutions[i].getStatus()) == 0)
+        {
+            uniques.insert(make_pair(solutions[i].getStatus(), 1));
+        }
 
-    return hash.size();
+        // already in hash so update count
+        else
+        {
+            uniques[solutions[i].getStatus()]++;
+        }
+
+    }
+    return uniques.size();
 }
 
 

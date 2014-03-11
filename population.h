@@ -12,6 +12,7 @@ class Population
     private:
         int id;
         vector<Solution> solutions;
+        map<int,int> uniques;
         double avgDistance;
         double meanDistance;
         double avgFitness;
