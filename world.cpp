@@ -6,7 +6,7 @@
 #include "board.h"
 #include "dbh.h"
 
-#define LOGGING true
+#define LOGGING false
 
 // use same seed for comparing bl and enh
 //#define RAND_SEED 2010
@@ -85,7 +85,7 @@ void World::start()
     {
         // the following line is population^2 so really slow, only useful for
         // visualization in tuning
-        population.calcDiversity();
+        // population.calcDiversity();
         int uniques = population.getUniqueIndividuals();
         fprintf(log, "%d\t%f\t%f\t%f\t%f\n", 
                 i, population.getMeanDistance(), population.getAvgFitness(), 
