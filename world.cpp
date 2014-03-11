@@ -117,20 +117,20 @@ void World::start()
     log = fopen("log/title.txt", "w");
     fprintf(log, 
             "%s - pop: %d - gen: %d - mutat: %.3f - xover: %.3f - seed: %ld\
-            \nelites: %d - isize: %d - board: %d - %s - %d moves", 
+            \nelites: %d - isize: %d - board: %d - %s - %d moves - %d gens", 
             (enhanced ? "Enhanced" : "Baseline"), pop_size, num_gens, (double) 1/mutation, 
             (double) 1/crossover, (long)RAND_SEED, elites, 
             (enhanced ? EN_SOLUTION_INIT_SIZE : BL_SOLUTION_INIT_SIZE), origin, 
             (solved ? "SOLVED" : "NOT SOLVED"),
-            population.getBest().getSize()); 
+            population.getBest().getSize(), i+1); 
     fclose(log);
     log = fopen("log/file.txt", "w");
     fprintf(log, 
-            "%s-%d-pop_%d-gen_%d-mut_%.3f-xover_%.3f-elites_%d-isize_%d-seed_%ld-%s-%d-moves", 
+            "%s-%d-pop_%d-gen_%d-mut_%.3f-xover_%.3f-elites_%d-isize_%d-seed_%ld-%s-%d-moves_%d", 
             (enhanced ? "enh" : "bl"), origin, pop_size, num_gens, 
             (double) 1/mutation, (double) 1/crossover, 
             elites, (enhanced ? EN_SOLUTION_INIT_SIZE : BL_SOLUTION_INIT_SIZE), 
             (long)RAND_SEED, (solved ? "SOLVED" : "NOT-SOLVED"),
-            population.getBest().getSize()); 
+            population.getBest().getSize(), i+1); 
     fclose(log);
 }
