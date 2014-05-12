@@ -32,10 +32,10 @@ A single point crossover method is used.  The elite chromosome is iterated from 
 ## Mutation Algorithm
 There are 4 ways a chromosome can mutate.  In each method steps are taken to never create a cycle.  Randomly one of the following are applied on each mutation call:
 
-#. Grow one new move to increase fitness value
-#. Grow one new move to a random non-cycling position
-#. Modify current board state into random non-cycling position
-#. If larger than 31 moves then truncate to a random length else nothing
+1. Grow one new move to increase fitness value
+2. Grow one new move to a random non-cycling position
+3. Modify current board state into random non-cycling position
+4. If larger than 31 moves then truncate to a random length else nothing
 
 ## Fitness Function
 A Manhattan distance and the correctness of the top row and left columns are used in the fitness function.  The Manhattan distance is the sum of the total distance horizontally and vertically to the board goal state.  
@@ -108,9 +108,9 @@ The ENGA performed fairly well in comparision to the BLGA.  The added computatio
 * `solution.cpp`: The chromosome data structure for each solution.  Methods include mutation and crossover as well as auxiliary methods for getting and checking details of a solution.
 * `board.cpp`: The gene data structure for each puzzle state.  The encoding and decoding of each puzzle into an integer and array are located in this file. Logic for movement of tiles and fitness calculations are also located here. 
 * `main.cpp`: Parses command line arguments and creates the world.
+
 # Compilation and Running Instructions
 
-# Install and Run
 These instructions are meant to compile and run the program on a Linux operating system with *make* and *g++* installed. From the command line the following steps are needed:
 
 
