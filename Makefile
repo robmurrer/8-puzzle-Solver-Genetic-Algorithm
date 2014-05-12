@@ -11,6 +11,8 @@ CXXFLAGS=-g -Wall -pedantic -Wno-gnu -Wno-variadic-macros
 #hardest
 BOARD=8672543_1
 
+#BOARD=8762543_1
+
 BIN=puzzle
 SRC=$(wildcard *.cpp)
 OBJ=$(SRC:%.cpp=%.o)

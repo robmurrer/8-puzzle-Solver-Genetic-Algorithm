@@ -14,7 +14,7 @@ The comparison in performance by the BLGA and the ENGA was measured in the numbe
 
 # Baseline Genetic Algorithm
 ## Problem Representation
-A solution to an 8 puzzle problem can be represented as a series of changes in tile positions.  A single state of the puzzle in this Genetic Algorithm (GA) is represented by a single 32 bit integer.  The encoding of the state of the puzzle is a simple reading of the numbers in cells 1 to 9 and combining them into a single integer.  For example the following board is encoded as 321456078.
+A solution to an 8 puzzle problem can be represented as a series of changes in tile positions.  A single state of the puzzle in this GA is represented by a single 32 bit integer.  The encoding of the state of the puzzle is a simple reading of the numbers in cells 1 to 9 and combining them into a single integer.  For example the following board is encoded as 321456078.
 
     3 2 1
     4 5 6
@@ -42,7 +42,7 @@ There are 4 ways a chromosome can mutate.  In each method steps are taken to nev
 #. If larger than 31 moves then truncate to a random length else nothing
 
 ## Fitness Function
-A Manhattan distance and the correctness of the top row and left columns are used in the fitness function.  The Manhattan distance is the sum of the total distance horizontally and vertically to the tiles goal state.  
+A Manhattan distance and the correctness of the top row and left columns are used in the fitness function.  The Manhattan distance is the sum of the total distance horizontally and vertically to the board goal state.  
 The fitness value for a solution is calculated by this formula applied to the current state of the solution:
 
     Fitness = 1 - Manhattan*0.01 - TopLeft*0.2
@@ -68,9 +68,9 @@ To ensure a fair comparison between the ENGA and the BLGA, the parameters of the
 Each individual in the population was analyzed and counted to determine the number of unique solutions in the population.  This is done with a simple hash-table counting method.  At the beginning of each generation in the population this calculation is done.
 
 ## Controlling Diversity
-There are two parameters use to control diversity in the run: maximum number of duplicates and hyper-mutation.  Before the mutation and crossover operations are done on the population, the population's solutions were enumerated and checked against the maximum number of duplicates.
+There are two parameters used to control diversity in the run: maximum number of duplicates and hyper-mutation.  Before the mutation and crossover operations are done on the population, the population's solutions were enumerated and checked against the maximum number of duplicates.
 
-If a solution was present in the population more than the maximum allowed, the solutions that were greater than the maximum were hyper-mutated.  This hyper-mutations simply called the mutation operator on the solution N times.  N being the parameter hyper-mutation.
+If a solution was present in the population more than the maximum allowed, those chromosomes were hyper-mutated.  This hyper-mutations simply called the mutation operator on the solution N times.  N being the parameter hyper-mutation.
 
 # Experiments
 A number of experiments were run for tuning the BLGA before the comparison to the ENGA.  These experiments were simply optimizing the parameters for a balance of solution size and generations needed to complete the run.  When the optimizations were made the parameters were locked between the BLGA and ENGA.
@@ -103,7 +103,7 @@ Both GAs were able to find solutions for each run that was given to them.  The d
 # Analysis
 In the BLGA diversity control was never a problem.  This may be because of the design of the GA or the simplicity of the problem.  Perhaps if the GA were designed to find the shortest solution, diversity control may be more necessary.
 
-The ENGA performed fairly well in comparision to the BLGA.  The added computational complexity of the first method of diversity calculation being O(N^2) was too much for quick experimentation.  The uniqueness method that was used for diversity control may be a little to simplistic for robust control of a GA.   
+The ENGA performed fairly well in comparision to the BLGA.  The added computational complexity of the first method of diversity calculation being O(N^2) was too much for quick experimentation.  The uniqueness method that was used for diversity control may be a little too simplistic for robust control of a GA.   
 
 ## Description of Source Files
 
@@ -113,4 +113,4 @@ The ENGA performed fairly well in comparision to the BLGA.  The added computatio
 * `board.cpp`: The gene data structure for each puzzle state.  The encoding and decoding of each puzzle into an integer and array are located in this file. Logic for movement of tiles and fitness calculations are also located here. 
 * `main.cpp`: Parses command line arguments and creates the world.
 
-
+# References

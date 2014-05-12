@@ -14,7 +14,7 @@
 #define RAND_SEED time(0) 
 
 // for both enhanced and bl use same pop/gen for fairness
-#define POPULATION_SIZE 500 
+#define POPULATION_SIZE 100
 #define NUMBER_GENS 500 
 
 // baseline
